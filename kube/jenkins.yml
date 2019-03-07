@@ -47,7 +47,7 @@ spec:
       initContainers:
         - name: move-dsl-jobs
           image: alpine:latest
-          command: ["sh", "-c", "mkdir -m 777 -p /var/jenkins_home/jobs/dsl-job/builds && cp /opt/dsl-job/config.xml /var/jenkins_home/jobs/dsl-job/config.xml && chown -R 1000:1000 /var/jenkins_home/jobs/"]
+          command: ["sh", "-c", "mkdir -m 777 -p /var/jenkins_home/jobs/dsl-job/builds && cp /opt/dsl-job/dsl-security.xml /var/jenkins_home/javaposse.jobdsl.plugin.GlobalJobDslSecurityConfiguration.xml && cp /opt/dsl-job/config.xml /var/jenkins_home/jobs/dsl-job/config.xml && chown -R 1000:1000 /var/jenkins_home/jobs/"]
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
@@ -55,7 +55,7 @@ spec:
               mountPath: /opt/dsl-job
       containers:
         - name: jenkins
-          image: nhyne/jenkins:0.1.7
+          image: nhyne/jenkins:3
           env:
             - name: JAVA_OPTS
               value: -Djenkins.install.runSetupWizard=false
