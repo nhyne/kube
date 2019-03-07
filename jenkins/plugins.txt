@@ -1,0 +1,5 @@
+kubernetes:1.14.8
+git:3.9.3
+job-dsl:1.72
+github:1.29.3
+ws-cleanup:0.37

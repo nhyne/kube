@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jenkins
+  labels:
+    name: jenkins
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    name: jenkins
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+  selector:
+    app: jenkins
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jnlp
+  namespace: jenkins
+  labels:
+    name: jnlp
+spec:
+  ports:
+    - port: 50000
+  selector:
+    app: jnlp
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins
+  namespace: jenkins
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      initContainers:
+        - name: move-dsl-jobs
+          image: alpine:latest
+          command: ["sh", "-c", "mkdir -m 777 -p /var/jenkins_home/jobs/dsl-job/builds && cp /opt/dsl-job/config.xml /var/jenkins_home/jobs/dsl-job/config.xml && chown -R 1000:1000 /var/jenkins_home/jobs/"]
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: dsl-job-config
+              mountPath: /opt/dsl-job
+      containers:
+        - name: jenkins
+          image: nhyne/jenkins:0.1.7
+          env:
+            - name: JAVA_OPTS
+              value: -Djenkins.install.runSetupWizard=false
+          ports:
+            - name: http-port
+              containerPort: 8080
+            - name: jnlp-port
+              containerPort: 50000
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: jenkins-admin
+              readOnly: true
+              mountPath: /opt/jenkins-admin
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: jenkins-home
+          emptyDir: {}
+        - name: dsl-job-config
+          configMap:
+            name: dsl-job-config
+        - name: jenkins-admin
+          secret:
+            secretName: jenkins-admin
+            items:
+              - key: username
+                path: username
+                mode: 444
+              - key: password
+                path: password
+                mode: 444
