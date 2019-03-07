@@ -1,2 +1,7 @@
 **/.terraform
 kube/nogit
+*.pem
+*.jks
+*.pkcs12
+.idea
+

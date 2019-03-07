@@ -15,7 +15,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8080
+    - port: 8443
   selector:
     app: jenkins
 ---
@@ -53,15 +53,22 @@ spec:
               mountPath: /var/jenkins_home
             - name: dsl-job-config
               mountPath: /opt/dsl-job
+            - name: jenkins-cert
+              mountPath: /etc/ssl/jenkins
       containers:
         - name: jenkins
           image: nhyne/jenkins:3
           env:
             - name: JAVA_OPTS
               value: -Djenkins.install.runSetupWizard=false
+            - name: JENKINS_OPTS
+              valueFrom:
+                secretKeyRef:
+                  name: jenkins-cert
+                  key: flags
           ports:
-            - name: http-port
-              containerPort: 8080
+            - name: https-port
+              containerPort: 8443
             - name: jnlp-port
               containerPort: 50000
           volumeMounts:
@@ -70,6 +77,8 @@ spec:
             - name: jenkins-admin
               readOnly: true
               mountPath: /opt/jenkins-admin
+            - name: jenkins-cert
+              mountPath: /etc/ssl/jenkins
       securityContext:
         fsGroup: 1000
       volumes:
@@ -87,4 +96,11 @@ spec:
                 mode: 444
               - key: password
                 path: password
+                mode: 444
+        - name: jenkins-cert
+          secret:
+            secretName: jenkins-cert
+            items:
+              - key: key
+                path: key
                 mode: 444
