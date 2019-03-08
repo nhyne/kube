@@ -5,10 +5,12 @@ metadata:
   namespace: jenkins
   labels:
     name: jenkins
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: jenkins.nhyne.dev.
 spec:
   type: NodePort
   ports:
-    - port: 8443
+    - port: 443
   selector:
     app: jenkins
 ---
@@ -57,11 +59,11 @@ spec:
             - name: JENKINS_OPTS
               valueFrom:
                 secretKeyRef:
-                  name: jenkins-cert
+                  name: jenkins
                   key: flags
           ports:
             - name: https-port
-              containerPort: 8443
+              containerPort: 443
             - name: jnlp-port
               containerPort: 50000
           volumeMounts:
@@ -82,7 +84,7 @@ spec:
             name: dsl-job-config
         - name: jenkins-admin
           secret:
-            secretName: jenkins-admin
+            secretName: jenkins
             items:
               - key: username
                 path: username
@@ -92,7 +94,7 @@ spec:
                 mode: 444
         - name: jenkins-cert
           secret:
-            secretName: jenkins-cert
+            secretName: jenkins
             items:
               - key: key
                 path: key
