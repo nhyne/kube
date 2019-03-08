@@ -8,9 +8,10 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: jenkins.nhyne.dev.
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 443
+      targetPort: 8443
   selector:
     app: jenkins
 ---
@@ -63,7 +64,7 @@ spec:
                   key: flags
           ports:
             - name: https-port
-              containerPort: 443
+              containerPort: 8443
             - name: jnlp-port
               containerPort: 50000
           volumeMounts:
@@ -96,6 +97,6 @@ spec:
           secret:
             secretName: jenkins
             items:
-              - key: key
+              - key: httpsKey
                 path: key
                 mode: 444

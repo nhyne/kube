@@ -57,6 +57,5 @@ spec:
         - --source=ingress
         - --domain-filter=nhyne.dev
         - --provider=google
-        - --policy=upsert-only
         - --registry=txt
         - --txt-owner-id=nhyne-kube-utility
