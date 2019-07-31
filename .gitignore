@@ -1,5 +1,5 @@
 **/.terraform
-kube/nogit
+**/nogit
 *.pem
 *.jks
 *.pkcs12
