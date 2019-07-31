@@ -6,23 +6,23 @@ generate_pks:
 	keytool -importkeystore -srckeystore jenkins.pkcs12 -srcstoretype pkcs12 -destkeystore jenkins.jks
 
 namespaces:
-	parallel "kubectl apply -f {}" ::: kube/namespaces/*.yml
+	parallel "kubectl apply -f {}" ::: kube/shared/namespaces/*.yml
 
 encrypt_secrets:
 	gcloud kms encrypt \
-      --key jenkins \
-      --keyring jenkins-secrets \
-      --location global \
-      --plaintext-file ./kube/nogit/secrets.yml \
-      --ciphertext-file ./kube/enc_secrets/secrets
+	--key jenkins \
+	--keyring jenkins-secrets \
+	--location global \
+	--plaintext-file ./kube/nogit/secrets.yml \
+	--ciphertext-file ./kube/enc_secrets/secrets
 
 decrypt_secrets:
 	gcloud kms decrypt \
-      --key jenkins \
-      --keyring jenkins-secrets \
-      --location global \
-      --plaintext-file ./kube/nogit/secrets.yml \
-      --ciphertext-file ./kube/enc_secrets/secrets
+	--key jenkins \
+	--keyring jenkins-secrets \
+	--location global \
+	--plaintext-file ./kube/nogit/secrets.yml \
+	--ciphertext-file ./kube/enc_secrets/secrets
 
 secrets: decrypt_secrets
 	kubectl apply -f ./kube/nogit/secrets.yml
