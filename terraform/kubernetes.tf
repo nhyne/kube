@@ -1,6 +1,6 @@
 resource "google_container_cluster" "primary" {
-  name = "nhyne-cluster"
-  zone = "us-central1-a"
+  name     = "nhyne-cluster"
+  location = "us-central1-a"
 
   remove_default_node_pool = true
   initial_node_count       = 1
@@ -12,9 +12,9 @@ resource "google_container_cluster" "primary" {
 }
 
 resource "google_container_node_pool" "primary_nodes" {
-  name    = "nhyne-primary-nodes"
-  zone    = "us-central1-a"
-  cluster = google_container_cluster.primary.name
+  name     = "nhyne-primary-nodes"
+  location = "us-central1-a"
+  cluster  = google_container_cluster.primary.name
 
   node_count = 1
 
