@@ -26,3 +26,14 @@ decrypt_secrets:
 
 secrets: decrypt_secrets
 	kubectl apply -f ./kube/nogit/secrets.yml
+
+minikube_argo:
+	argocd app create jenkins \
+  --repo https://github.com/nhyne/kube.git \
+  --path kube/minikube/jenkins \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace jenkins \
+  --sync-policy automated \
+  --revision develop \
+  --directory-recurse \
+  --auto-prune
