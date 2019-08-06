@@ -17,3 +17,6 @@ gcp_argo:
 
 install_linkerd:
 	linkerd install | kubectl apply -f -
+
+forward_argo:
+	kubectl port-forward -n argocd service/argocd-server 8080:443
