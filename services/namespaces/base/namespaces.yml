@@ -18,3 +18,10 @@ metadata:
   name: utility
   labels:
     name: utility
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: archiver
+  labels:
+    name: archiver
