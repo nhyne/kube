@@ -3,4 +3,4 @@ kind: Kustomization
 commonLabels:
   service: archiver
 resources:
-  - rust_api.yml
+  - rust-api.yml
