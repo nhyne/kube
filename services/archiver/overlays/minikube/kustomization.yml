@@ -6,3 +6,6 @@ bases:
   - ../../base
 resources:
   - postgres.yml
+  - diesel-init.yml
+patches:
+  - rust-api.yml

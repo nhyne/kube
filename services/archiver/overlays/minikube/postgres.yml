@@ -17,23 +17,6 @@ spec:
       labels:
         app: postgres
     spec:
-      initContainers:
-        - name: git-sync
-          image: nhyne/git-sync:1.0.0__linux_amd64
-          command: ["/git-sync"]
-          args: ["--repo=https://github.com/nhyne/archiver-api", "--branch=develop", "--one-time"]
-          volumeMounts:
-            - mountPath: /tmp/git
-              name: git
-        # need to clone the api repo to a directory
-        - name: ls
-          image: alpine:latest
-          command: ["ls"]
-          args: ["-la", "/home/archiver-api"]
-          volumeMounts:
-            - mountPath: /home
-              name: git
-        # need to run diesel setup to execute the migrations and init the DB
       containers:
       - name: postgres
         image: postgres:11.5-alpine
@@ -47,9 +30,6 @@ spec:
         ports:
         - containerPort: 5432
           protocol: TCP
-      volumes:
-        - name: git
-          emptyDir: {}
 ---
 kind: Service
 apiVersion: v1
