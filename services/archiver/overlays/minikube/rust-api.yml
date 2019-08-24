@@ -1,3 +1,5 @@
+# This exists so that diesel can run any needed migrations before 
+#   the API tries to connect for the first time
 ---
 kind: Deployment
 apiVersion: apps/v1

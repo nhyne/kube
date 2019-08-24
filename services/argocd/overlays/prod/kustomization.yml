@@ -4,4 +4,3 @@ commonLabels:
   env: prod
 bases:
   - ../../base
-patches:

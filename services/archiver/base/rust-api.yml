@@ -5,7 +5,6 @@ metadata:
   labels:
     app: archiver-api
   name: archiver-api
-  namespace: archiver
 spec:
   replicas: 1
   revisionHistoryLimit: 10
