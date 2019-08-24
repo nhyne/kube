@@ -9,3 +9,8 @@ provider "google" {
 provider "null" {
   version = "~> 2.1"
 }
+
+provider "kubernetes" {
+  # config_context_cluster   = ""
+  version = "~> 1.9.0"
+}
