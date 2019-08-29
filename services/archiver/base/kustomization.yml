@@ -4,4 +4,5 @@ namespace: archiver
 commonLabels:
   service: archiver
 resources:
+  - namespace.yml
   - rust-api.yml
