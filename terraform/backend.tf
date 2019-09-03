@@ -5,6 +5,6 @@ terraform {
     credentials = "~/.keys/nhyne.json"
   }
 
-  required_version = "0.12.5"
+  required_version = "0.12.7"
 }
 
