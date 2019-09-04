@@ -3,7 +3,6 @@ package kube
 import (
 	"text/tabwriter"
 	"tool/cli"
-	"tool/file"
 )
 
 command ls: {
@@ -12,10 +11,5 @@ command ls: {
 			"\(x.kind)  \t\(x.metadata.labels.component)  \t\(x.metadata.name)"
 			for x in objects
 		])
-	}
-
-	task write: file.Create & {
-		filename: "foo.txt"
-		contents: task.print.text
 	}
 }

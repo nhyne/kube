@@ -1,8 +1,9 @@
 package kube
 
 deployment "archiver-api": {
+	_env: "prod"
+	_app: "rust"
 	spec: {
-		selector matchLabels app: "archiver-api"
 		template spec containers: [{
 			image: "nhyne/archiver-api:0.0.1-alpha"
 			env: [{

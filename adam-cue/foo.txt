@@ -1,2 +1,0 @@
-Service      archiver-api   archiver-api
-Deployment   archiver-api   archiver-api
