@@ -14,6 +14,7 @@ deployment <Name>: _spec & {
 service "\(k)": {
 	apiVersion: "v1"
 	kind:       "Service"
+    metadata: v.metadata
 
 	spec selector: v.spec.template.metadata.labels
 
