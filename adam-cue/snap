@@ -1,0 +1,93 @@
+_spec: {
+    _component: string
+    _name:      string
+    metadata: {
+        name: string
+        labels: {
+            component: string
+        }
+    }
+    spec: {
+        template: {
+            metadata: {
+                labels: {
+                    env:       string
+                    component: string
+                    app:       string
+                }
+            }
+            spec: {
+                containers: [{
+                    name: string
+                    ports: []
+                }]
+            }
+        }
+    }
+}
+deployment: {
+    "archiver-api": {
+        kind:       "Deployment"
+        _component: "something"
+        _name:      "archiver-api"
+        metadata: {
+            name: "archiver-api"
+            labels: {
+                component: "something"
+            }
+        }
+        spec: {
+            template: {
+                metadata: {
+                    labels: {
+                        env:       string
+                        component: "something"
+                        app:       "archiver-api"
+                    }
+                }
+                spec: {
+                    containers: [{
+                        name: "archiver-api"
+                        env: [{
+                            name:  "DATABASE_URL"
+                            value: "postgres://something:somethingelse@postgres:5432/archiver"
+                        }]
+                        ports: [{
+                            _export:       true
+                            containerPort: 8000
+                            protocol:      "TCP"
+                        }]
+                        image: "nhyne/archiver-api:0.0.1-alpha"
+                    }]
+                }
+            }
+            selector: {
+                matchLabels: {
+                    app: "archiver-api"
+                }
+            }
+            replicas:             1
+            revisionHistoryLimit: 10
+        }
+        apiVersion: "apps/v1"
+    }
+}
+service: {
+    "archiver-api": {
+        metadata: {
+            namespace: "archiver"
+        }
+        spec: {
+            ports: [{
+                port:       443
+                targetPort: 8000
+            }]
+            selector: {
+                env:       string
+                component: "something"
+                app:       "archiver-api"
+            }
+            type: "LoadBalancer"
+        }
+    }
+}

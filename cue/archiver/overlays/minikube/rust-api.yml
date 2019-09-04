@@ -1,0 +1,18 @@
+# This exists so that diesel can run any needed migrations before
+#   the API tries to connect for the first time
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: archiver-api
+spec:
+  template:
+    metadata:
+      labels:
+        component: archiver-api
+    spec:
+      initContainers:
+        - name: sleep
+          image: alpine:3.10.1
+          command: ["sleep"]
+          args: ["30"]
