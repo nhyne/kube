@@ -1,8 +1,10 @@
 package kube
 
 deployment "archiver-api": {
-	_env: "prod"
+	_archiver_metadata
+
 	spec: {
+		template metadata labels: _archiver_labels
 		template spec containers: [
 			_archiver_container,
 		]
@@ -19,6 +21,19 @@ _archiver_container: {
 		name:          "something"
 		containerPort: 8000
 		protocol:      "TCP"
-		//_export: false
 	}]
+}
+
+_archiver_metadata: {
+	metadata: {
+		name:      "archiver-api"
+		namespace: "archiver"
+		labels:    _archiver_labels
+	}
+}
+
+_archiver_labels: {
+	component: "archiver-api"
+	env:       "prod"
+	app:       "rust"
 }
