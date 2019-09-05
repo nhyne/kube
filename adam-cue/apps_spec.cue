@@ -3,7 +3,7 @@ package kube
 _metadata_common_spec: {
 	metadata: {
 		name:      string
-		namespace: *"" | string
+		namespace: *"default" | string
 		labels: {
 			env:      string
 			componen: string
