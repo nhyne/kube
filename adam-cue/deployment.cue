@@ -7,6 +7,7 @@ deployment <Name>: _apps_common_spec & {
 	_component: Name
 	spec replicas:             *1 | int
 	spec revisionHistoryLimit: *10 | int
+    spec selector matchLabels: _common_labels_spec
 	spec template spec containers: [..._container]
 }
 

@@ -4,6 +4,7 @@ deployment "archiver-api": {
 	_archiver_metadata
 
 	spec: {
+		selector matchLabels: _archiver_labels
 		template metadata labels: _archiver_labels
 		template spec containers: [
 			_archiver_container,
