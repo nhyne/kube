@@ -11,7 +11,6 @@ _metadata_common_spec: {
 _apps_common_spec: _metadata_common_spec & {
 	spec template: {
 		metadata labels: _common_labels_spec
-		//spec containers: [{name: _name}]
 	}
 }
 

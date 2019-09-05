@@ -7,8 +7,7 @@ deployment <Name>: _apps_common_spec & {
 	_component: Name
 	spec replicas:             *1 | int
 	spec revisionHistoryLimit: *10 | int
-	// TODO: should have a `spec template spec <container> type`
-	spec template spec containers: [...container]
+	spec template spec containers: [..._container]
 }
 
 service "\(k)": {

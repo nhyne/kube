@@ -13,6 +13,7 @@ deployment "archiver-api": {
 
 _archiver_container: {
 	image: "nhyne/archiver-api:0.0.1-alpha"
+	name:  "archiver-api"
 	env: [{
 		name:  "DATABASE_URL"
 		value: "postgres://something:somethingelse@postgres:5432/archiver"

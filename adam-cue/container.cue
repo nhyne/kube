@@ -1,18 +1,18 @@
 package kube
 
-container: {
+_container: {
 	name:  string
 	image: string
-	env: [...envType]
-	ports: [...portType]
+	env: [..._env_spec]
+	ports: [..._port_spec]
 }
 
-envType <Key>: string
+_env_spec: {
+	name:  string
+	value: string
+}
 
-envSpec <Key>: {}
-envSpec: {"\(k)" value: v for k, v in envType}
-
-portType: {
+_port_spec: {
 	name:          string
 	protocol:      *"TCP" | "UDP"
 	containerPort: >=0 & <=65535 & int
