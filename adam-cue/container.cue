@@ -16,7 +16,5 @@ portType: {
 	name:          string
 	protocol:      *"TCP" | "UDP"
 	containerPort: >=0 & <=65535 & int
-  _export:       *true | false
+	_export:       *true | false
 }
-
-

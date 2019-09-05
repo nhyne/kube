@@ -1,6 +1,14 @@
 package kube
 
-_spec: {
+_metadata_common_spec: {
+	metadata: {
+		name: string
+		labels: {
+			env:      string
+			componen: string
+			app:      string
+		}
+	}
 	_component: string
 	_env:       string
 	_name:      string
@@ -11,11 +19,14 @@ _spec: {
 		env:       _env
 		app:       _app
 	}
+}
+
+_apps_common_spec: _metadata_common_spec & {
 	spec template: {
 		metadata labels: {
-			app:       _app
-			component: _component
-			env:       _env
+			app:       _metadata_common_spec._app
+			component: _metadata_common_spec._component
+			env:       _metadata_common_spec._env
 		}
 		//spec containers: [{name: _name}]
 	}

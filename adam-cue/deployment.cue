@@ -1,6 +1,6 @@
 package kube
 
-deployment <Name>: _spec & {
+deployment <Name>: _apps_common_spec & {
 	apiVersion: "apps/v1"
 	kind:       "Deployment"
 	_name:      Name
@@ -14,7 +14,7 @@ deployment <Name>: _spec & {
 service "\(k)": {
 	apiVersion: "v1"
 	kind:       "Service"
-    metadata: v.metadata
+	metadata:   v.metadata
 
 	spec selector: v.spec.template.metadata.labels
 

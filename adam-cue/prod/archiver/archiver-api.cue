@@ -4,7 +4,7 @@ deployment "archiver-api": {
 	_env: "prod"
 	spec: {
 		template spec containers: [
-			_archiver_container
+			_archiver_container,
 		]
 	}
 }
@@ -16,7 +16,7 @@ _archiver_container: {
 		value: "postgres://something:somethingelse@postgres:5432/archiver"
 	}]
 	ports: [{
-    name: "something"
+		name:          "something"
 		containerPort: 8000
 		protocol:      "TCP"
 		//_export: false
