@@ -16,8 +16,8 @@ statefulSet "drone": {
 }
 
 _container: {
-  image: "nhyne/archiver-api:0.0.1-alpha"
-  name:  "archiver-api"
+  image: "drone/drone:1.0.0"
+  name:  "server"
   env: [{
     name:  "DRONE_KUBERNETES_ENABLED"
     value: "true"

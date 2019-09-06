@@ -1,13 +1,13 @@
 package kube
 
-service "\(k)-\(p.name)": {
+service "\(k)-\(con.name)-\(p.name)": {
   apiVersion: "v1"
   kind:       "Service"
   metadata: {
     AppMeta = v.metadata
     namespace: AppMeta.namespace
     labels: AppMeta.labels
-    name: "\(k)-\(p.name)"
+    name: "\(k)-\(con.name)-\(p.name)"
   }
   type:       p._type
 
