@@ -10,7 +10,6 @@ statefulSet "drone": {
     template metadata labels: _labels
     template spec containers: [
       _container,
-      //_container2,
     ]
   }
 }
@@ -46,28 +45,6 @@ _container: {
       key: "client_secret"
     }
     _secret: true
-  },{
-    name: "DRONE_RPC_SECRET"
-    valueFrom secretKeyRef: {
-      name: "drone"
-      key: "drone_rpc_secret"
-    }
-    _secret: true
-  }]
-  ports: [{
-    name:          "https-port"
-    containerPort: 443
-    protocol:      "TCP"
-    _type: "LoadBalancer"
-  }]
-}
-
-_container2: {
-  image: "nhyne/archiver-api:0.0.1-alpha"
-  name:  "archiver-api"
-  env: [{
-    name:  "DRONE_KUBERNETES_ENABLED"
-    value: "true"
   },{
     name: "DRONE_RPC_SECRET"
     valueFrom secretKeyRef: {

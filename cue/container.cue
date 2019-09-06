@@ -1,6 +1,6 @@
 package kube
 
-_container: {
+_container_spec: {
 	name:  string
 	image: string
 	env: [..._env_spec]
