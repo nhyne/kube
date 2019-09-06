@@ -59,10 +59,6 @@ _container: {
     containerPort: 443
     protocol:      "TCP"
     _type: "LoadBalancer"
-  },{
-    name:          "https2-port"
-    containerPort: 443
-    protocol:      "TCP"
   }]
 }
 
