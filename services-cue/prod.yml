@@ -1,3 +1,17 @@
+kind: v1
+metadata:
+  labels:
+    name: drone
+  name: drone
+type: Namespace
+---
+kind: v1
+metadata:
+  labels:
+    name: archiver
+  name: archiver
+type: Namespace
+---
 apiVersion: v1
 kind: Service
 metadata:
