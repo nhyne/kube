@@ -1,6 +1,6 @@
 package kube
 
-statefulSet "drone": {
+_statefulSet "drone\(_labels.env)": {
 
   _metadata
   serviceName: "drone"
@@ -75,7 +75,7 @@ _labels: {
   app:       "drone-server"
 }
 
-clusterRoleBinding "drone-rbac": {
+_clusterRoleBinding "drone-rbac-\(_labels.env)": {
   apiVersion: "rbac.authorization.k8s.io/v1beta1"
   kind:       "ClusterRoleBinding"
   metadata:{

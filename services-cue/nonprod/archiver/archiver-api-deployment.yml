@@ -4,7 +4,7 @@ metadata:
   labels:
     app: rust
     component: archiver-api
-    env: prod
+    env: nonprod
   name: archiver-api
   namespace: archiver
 spec:
@@ -14,13 +14,13 @@ spec:
     matchLabels:
       app: rust
       component: archiver-api
-      env: prod
+      env: nonprod
   template:
     metadata:
       labels:
         app: rust
         component: archiver-api
-        env: prod
+        env: nonprod
     spec:
       containers:
       - args: []

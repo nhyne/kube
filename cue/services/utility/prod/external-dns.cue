@@ -42,6 +42,7 @@ _metadata: {
 _labels: {
   app: "external-dns"
   component: "external-dns"
+  env: "prod"
 }
 
 serviceAccount "external-dns": {

@@ -1,6 +1,6 @@
 package kube
 
-deployment "archiver-api": {
+_deployment "archiver-api\(_labels.env)": {
 	_metadata
 
 	spec: {
@@ -14,13 +14,13 @@ deployment "archiver-api": {
 
 _container: {
 	image: "nhyne/archiver-api:0.0.1-alpha"
-	name:  "archiver-api"
+	name:  "rust"
 	env: [{
 		name:  "DATABASE_URL"
 		value: "postgres://something:somethingelse@postgres:5432/archiver"
 	}]
 	ports: [{
-		name:          "something"
+		name:          "http"
 		containerPort: 8000
 		protocol:      "TCP"
 	}]
