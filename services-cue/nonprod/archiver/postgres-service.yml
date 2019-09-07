@@ -5,7 +5,7 @@ metadata:
     app: archiver
     component: database
     env: nonprod
-  name: postgres-postgres-postgres
+  name: postgres
   namespace: archiver
 spec:
   ports:

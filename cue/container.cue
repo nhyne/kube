@@ -30,5 +30,5 @@ _port_spec: {
 	_port:          *_targetPort | >=0 & <=65535 & int
 	_export:       *true | false
 	_type:				 *"ClusterIP" | string if _export
-  _dns_name:     string if _type == "LoadBalancer"
+  _dnsName:     string if _type == "LoadBalancer"
 }

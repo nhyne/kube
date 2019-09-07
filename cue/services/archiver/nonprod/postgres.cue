@@ -26,6 +26,7 @@ _postgres_container: {
   ports: [{
     name: "postgres"
     containerPort: 5432
+    _nameOverride: "postgres"
   }]
 }
 

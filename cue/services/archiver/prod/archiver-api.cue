@@ -10,7 +10,7 @@ _labels: {
 _port: {
     _port: 443
     _type: "LoadBalancer"
-    _dns_name: "archiver.nhyne.dev"
+    _dnsName: "archiver.nhyne.dev"
   }
 
 _metadata: {

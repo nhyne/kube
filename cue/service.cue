@@ -7,8 +7,8 @@ service "\(k)-\(con.name)-\(p.name)": {
     AppMeta = v.metadata
     namespace: AppMeta.namespace
     labels: AppMeta.labels
-    name: "\(k)-\(con.name)-\(p.name)"
-    annotations "external-dns.alpha.kubernetes.io/hostname": p._dns_name if p._type == "LoadBalancer"
+    name: *p._nameOverride | "\(k)-\(con.name)-\(p.name)"
+    annotations "external-dns.alpha.kubernetes.io/hostname": p._dnsName if p._type == "LoadBalancer"
   }
   spec type:       p._type
 
