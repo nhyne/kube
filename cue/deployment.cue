@@ -1,6 +1,6 @@
 package kube
 
-deployment <Name>: _apps_common_spec & {
+deployment <Name>: _apps_selector_common_spec & {
 	kind:       "Deployment"
 	_name:      Name
 	_component: Name

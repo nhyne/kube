@@ -8,11 +8,6 @@ metadata:
   name: diesel-init
   namespace: archiver
 spec:
-  selector:
-    matchLabels:
-      app: archiver
-      component: database-init
-      env: nonprod
   template:
     metadata:
       labels:
@@ -63,4 +58,6 @@ spec:
           name: git
       restartPolicy: Never
       serviceAccountName: default
-      volumes: []
+      volumes:
+      - emptyDir: {}
+        name: git

@@ -4,7 +4,6 @@ job "diesel-init": {
   _diesel_init_metadata
 
   spec: {
-    selector matchLabels: _diesel_init_labels
     template spec restartPolicy: "Never"
     template metadata labels: _diesel_init_labels
     template spec containers: [
@@ -14,6 +13,10 @@ job "diesel-init": {
       _git_sync_container,
       _ls_container,
     ]
+    template spec volumes: [{
+      name: "git"
+      _type: "empty"
+    }]
   }
 }
 
