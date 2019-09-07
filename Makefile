@@ -21,5 +21,6 @@ install_linkerd:
 forward_argo:
 	kubectl port-forward -n argocd service/argocd-server 8080:443
 
-prod_dump:
-	cue dump ./cue/prod/... > services-cue/prod.yml
+template:
+	find services-cue -name "*.yml" -delete
+	cue files ./cue/...

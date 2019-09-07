@@ -1,21 +1,21 @@
 package kube
 
 deployment "external-dns": {
-  _external_dns_metadata
+  _metadata
 
   spec: {
-    selector matchLabels: _external_dns_labels
-    template metadata labels: _external_dns_labels
+    selector matchLabels: _labels
+    template metadata labels: _labels
     template spec:{
       serviceAccountName: "external-dns"
       containers: [
-        _external_dns_container,
+        _container,
       ]
     }
   }
 }
 
-_external_dns_container: {
+_container: {
   image: "registry.opensource.zalan.do/teapot/external-dns:v0.5.11"
   name: "external-dns"
   args: [
@@ -31,29 +31,34 @@ _external_dns_container: {
   ]
 }
 
-_external_dns_metadata: {
+_metadata: {
   metadata: {
     name: "external-dns"
     namespace: "utility"
-    labels: _external_dns_labels
+    labels: _labels
   }
 }
 
-_external_dns_labels: {
+_labels: {
   app: "external-dns"
   component: "external-dns"
-  env: "prod"
 }
 
 serviceAccount "external-dns": {
   apiVersion: "v1"
   kind:       "ServiceAccount"
-  metadata name: "external-dns"
+  metadata:{
+    name: "external-dns"
+    labels: _labels
+  }
 }
 clusterRole "external-dns": {
   apiVersion: "rbac.authorization.k8s.io/v1beta1"
   kind:       "ClusterRole"
-  metadata name: "external-dns"
+  metadata: {
+    name: "external-dns"
+    labels: _labels
+  }
   rules: [{
     apiGroups: [""]
     resources: ["services"]
@@ -75,7 +80,10 @@ clusterRole "external-dns": {
 clusterRoleBinding "external-dns-viewer": {
   apiVersion: "rbac.authorization.k8s.io/v1beta1"
   kind:       "ClusterRoleBinding"
-  metadata name: "external-dns-viewer"
+  metadata:{
+    name: "external-dns-viewer"
+    labels: _labels
+  }
   roleRef: {
     apiGroup: "rbac.authorization.k8s.io"
     kind:     "ClusterRole"

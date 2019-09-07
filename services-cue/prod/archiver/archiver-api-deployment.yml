@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rust
+    component: archiver-api
+    env: prod
+  name: archiver-api
+  namespace: archiver
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: rust
+      component: archiver-api
+      env: prod
+  template:
+    metadata:
+      labels:
+        app: rust
+        component: archiver-api
+        env: prod
+    spec:
+      containers:
+      - args: []
+        env:
+        - name: DATABASE_URL
+          value: postgres://something:somethingelse@postgres:5432/archiver
+        image: nhyne/archiver-api:0.0.1-alpha
+        name: archiver-api
+        ports:
+        - containerPort: 8000
+          name: something
+          protocol: TCP
+      serviceAccountName: default

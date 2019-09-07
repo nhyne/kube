@@ -1,18 +1,18 @@
 package kube
 
 deployment "archiver-api": {
-	_archiver_metadata
+	_metadata
 
 	spec: {
-		selector matchLabels: _archiver_labels
-		template metadata labels: _archiver_labels
+		selector matchLabels: _labels
+		template metadata labels: _labels
 		template spec containers: [
-			_archiver_container,
+			_container,
 		]
 	}
 }
 
-_archiver_container: {
+_container: {
 	image: "nhyne/archiver-api:0.0.1-alpha"
 	name:  "archiver-api"
 	env: [{
@@ -26,16 +26,15 @@ _archiver_container: {
 	}]
 }
 
-_archiver_metadata: {
+_metadata: {
 	metadata: {
 		name:      "archiver-api"
 		namespace: "archiver"
-		labels:    _archiver_labels
+		labels:    _labels
 	}
 }
 
-_archiver_labels: {
+_labels: {
 	component: "archiver-api"
-	env:       "prod"
 	app:       "rust"
 }

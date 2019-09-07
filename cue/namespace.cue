@@ -2,8 +2,8 @@ package kube
 
 namespace <Name>: {
   _name: string
-  kind: "v1"
-  type: "Namespace"
+  apiVersion: "v1"
+  kind: "Namespace"
   metadata: {
     name: *_name | string
     labels name: *_name | string

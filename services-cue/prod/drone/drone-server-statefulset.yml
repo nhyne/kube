@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: drone-server
+    component: drone
+    env: prod
+  name: drone-server
+  namespace: drone
+serviceName: drone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drone-server
+      component: drone
+      env: prod
+  template:
+    metadata:
+      labels:
+        app: drone-server
+        component: drone
+        env: prod
+    spec:
+      containers:
+      - args: []
+        env:
+        - name: DRONE_KUBERNETES_ENABLED
+          value: "true"
+        - name: DRONE_KUBERNETES_NAMESPACE
+          value: drone
+        - name: DRONE_LOGS_DEBUG
+          value: "true"
+        - name: DRONE_ADMIN
+          value: nhyne
+        - name: DRONE_SERVER_HOST
+          value: drone.nhyne.dev
+        - name: DRONE_GITHUB_CLIENT_ID
+          value: a633f44f1ac044185bb3
+        - name: DRONE_TLS_AUTOCERT
+          value: "true"
+        - name: DRONE_GITHUB_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: client_secret
+              name: drone
+        - name: DRONE_RPC_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: drone_rpc_secret
+              name: drone
+        image: drone/drone:1.0.0
+        name: server
+        ports:
+        - containerPort: 443
+          name: https-port
+          protocol: TCP
+      serviceAccountName: default

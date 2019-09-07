@@ -72,6 +72,24 @@ _metadata: {
 
 _labels: {
   component: "drone"
-  env:       "prod"
   app:       "drone-server"
+}
+
+clusterRoleBinding "drone-rbac": {
+  apiVersion: "rbac.authorization.k8s.io/v1beta1"
+  kind:       "ClusterRoleBinding"
+  metadata:{
+    name: "drone-rbac"
+    labels: _labels
+  }
+  subjects: [{
+    kind:      "ServiceAccount"
+    name:      "default"
+    namespace: "drone"
+  }]
+  roleRef: {
+    kind:     "ClusterRole"
+    name:     "cluster-admin"
+    apiGroup: "rbac.authorization.k8s.io"
+  }
 }
