@@ -19,15 +19,14 @@ _container: {
 		name:  "DATABASE_URL"
 		value: "postgres://something:somethingelse@postgres:5432/archiver"
 	}]
-	ports: [{
+	ports: [_port]
+}
+
+_port: {
 		name:          "http"
 		containerPort: 8000
-		_port: 443
 		protocol:      "TCP"
-		_type: "LoadBalancer"
-		_dns_name: "archiver.nhyne.dev"
-	}]
-}
+	}
 
 _metadata: {
 	metadata: {
