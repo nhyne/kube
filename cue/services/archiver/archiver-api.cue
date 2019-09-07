@@ -30,13 +30,11 @@ _port: {
 
 _metadata: {
 	metadata: {
-		name:      "archiver-api"
 		namespace: "archiver"
 		labels:    _labels
 	}
 }
 
 _labels: {
-	component: "archiver-api"
-	app:       "rust"
+	app:       "archiver"
 }

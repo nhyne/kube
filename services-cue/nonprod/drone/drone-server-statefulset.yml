@@ -24,6 +24,7 @@ spec:
     spec:
       containers:
       - args: []
+        command: []
         env:
         - name: DRONE_KUBERNETES_ENABLED
           value: "true"
@@ -55,4 +56,5 @@ spec:
         - containerPort: 443
           name: https-port
           protocol: TCP
+        volumeMounts: []
       serviceAccountName: default

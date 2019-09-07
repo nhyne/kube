@@ -4,6 +4,7 @@ deployment: _deployment & {}
 
 _labels: {
   env: "prod"
+  component: "archiver-api"
 }
 
 _port: {
@@ -11,3 +12,9 @@ _port: {
     _type: "LoadBalancer"
     _dns_name: "archiver.nhyne.dev"
   }
+
+_metadata: {
+  metadata: {
+    name:      "archiver-api"
+  }
+}

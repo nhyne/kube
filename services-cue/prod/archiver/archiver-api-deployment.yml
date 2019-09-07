@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: rust
+    app: archiver
     component: archiver-api
     env: prod
   name: archiver-api
@@ -12,18 +12,19 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: rust
+      app: archiver
       component: archiver-api
       env: prod
   template:
     metadata:
       labels:
-        app: rust
+        app: archiver
         component: archiver-api
         env: prod
     spec:
       containers:
       - args: []
+        command: []
         env:
         - name: DATABASE_URL
           value: postgres://something:somethingelse@postgres:5432/archiver
@@ -33,5 +34,6 @@ spec:
         - containerPort: 8000
           name: http
           protocol: TCP
+        volumeMounts: []
       initContainers: []
       serviceAccountName: default

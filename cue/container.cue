@@ -6,6 +6,8 @@ _container_spec: {
 	env: [..._env_spec]
 	ports: [..._port_spec]
   args: [...string]
+  command: [...string]
+  volumeMounts: [..._volume_mount_spec]
 }
 
 _env_spec: {
