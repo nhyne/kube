@@ -15,8 +15,8 @@ service "\(k)-\(con.name)-\(p.name)": {
   spec selector: v.spec.template.metadata.labels
   spec ports: [ {
     Port = p["containerPort"] // Port is an alias
-    port:       p.port
-    targetPort: p.targetPort
+    port:       *p._port | Port
+    targetPort: Port
   } ]
 
 } for x in [deployment, statefulSet] for k, v in x

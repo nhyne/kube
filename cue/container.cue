@@ -23,8 +23,9 @@ _env_spec: {
 _port_spec: {
 	name:          string
 	protocol:      *"TCP" | "UDP"
-  targetPort:    >=0 & <=65535 & int
-	port:          *targetPort | >=0 & <=65535 & int
+  containerPort: >=0 & <=65535 & int
+  _targetPort:    *containerPort | >=0 & <=65535 & int
+	_port:          *_targetPort | >=0 & <=65535 & int
 	_export:       *true | false
 	_type:				 *"ClusterIp" | string if _export
   _dns_name:     string if _type == "LoadBalancer"

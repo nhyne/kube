@@ -30,8 +30,7 @@ spec:
         image: nhyne/archiver-api:0.0.1-alpha
         name: rust
         ports:
-        - name: http
-          port: 443
+        - containerPort: 8000
+          name: http
           protocol: TCP
-          targetPort: 8000
       serviceAccountName: default
