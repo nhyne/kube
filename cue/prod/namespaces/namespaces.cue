@@ -2,4 +2,9 @@ package kube
 
 namespace "\(x)": {
   _name: x
-} for x in ["drone", "archiver"]
+} for x in _namespaces
+
+_namespaces: [
+  "drone",
+  "archiver",
+]
