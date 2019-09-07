@@ -17,4 +17,4 @@ spec:
     app: drone-server
     component: drone
     env: prod
-type: LoadBalancer
+  type: LoadBalancer

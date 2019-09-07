@@ -27,6 +27,6 @@ _port_spec: {
   _targetPort:    *containerPort | >=0 & <=65535 & int
 	_port:          *_targetPort | >=0 & <=65535 & int
 	_export:       *true | false
-	_type:				 *"ClusterIp" | string if _export
+	_type:				 *"ClusterIP" | string if _export
   _dns_name:     string if _type == "LoadBalancer"
 }

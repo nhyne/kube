@@ -17,4 +17,4 @@ spec:
     app: rust
     component: archiver-api
     env: prod
-type: LoadBalancer
+  type: LoadBalancer

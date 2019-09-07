@@ -15,4 +15,4 @@ spec:
     app: rust
     component: archiver-api
     env: nonprod
-type: ClusterIp
+  type: ClusterIP

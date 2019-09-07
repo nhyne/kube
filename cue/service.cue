@@ -10,7 +10,7 @@ service "\(k)-\(con.name)-\(p.name)": {
     name: "\(k)-\(con.name)-\(p.name)"
     annotations "external-dns.alpha.kubernetes.io/hostname": p._dns_name if p._type == "LoadBalancer"
   }
-  type:       p._type
+  spec type:       p._type
 
   spec selector: v.spec.template.metadata.labels
   spec ports: [ {
