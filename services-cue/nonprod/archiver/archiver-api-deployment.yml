@@ -33,5 +33,13 @@ spec:
         - containerPort: 8000
           name: http
           protocol: TCP
-      initContainers: []
+      initContainers:
+      - args:
+        - "30"
+        command:
+        - sleep
+        env: []
+        image: alpine:3.10.1
+        name: sleep
+        ports: []
       serviceAccountName: default
