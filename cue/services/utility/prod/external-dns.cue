@@ -50,6 +50,7 @@ serviceAccount "external-dns": {
   kind:       "ServiceAccount"
   metadata:{
     name: "external-dns"
+    namespace: "utility"
     labels: _labels
   }
 }

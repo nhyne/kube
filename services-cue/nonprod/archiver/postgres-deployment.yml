@@ -41,3 +41,4 @@ spec:
         volumeMounts: []
       initContainers: []
       serviceAccountName: default
+  volumeClaimTemplates: []

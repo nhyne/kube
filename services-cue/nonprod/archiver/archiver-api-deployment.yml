@@ -46,3 +46,4 @@ spec:
         ports: []
         volumeMounts: []
       serviceAccountName: default
+  volumeClaimTemplates: []

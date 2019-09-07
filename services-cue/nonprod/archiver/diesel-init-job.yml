@@ -61,3 +61,4 @@ spec:
       volumes:
       - emptyDir: {}
         name: git
+  volumeClaimTemplates: []

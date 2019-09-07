@@ -7,7 +7,7 @@ metadata:
     app: drone-server
     component: drone
     env: prod
-  name: drone-prod-server-https-port
+  name: drone-server
   namespace: drone
 spec:
   ports:

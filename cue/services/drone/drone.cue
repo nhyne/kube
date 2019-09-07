@@ -3,14 +3,21 @@ package kube
 _statefulSet "drone-\(_labels.env)": {
 
   _metadata
-  serviceName: "drone"
 
   spec: {
+    serviceName: "drone"
     selector matchLabels: _labels
     template metadata labels: _labels
     template spec containers: [
       _container,
     ]
+    volumeClaimTemplates: [{
+      metadata name: "drone-home"
+      spec: {
+        accessModes: ["ReadWriteOnce"]
+        resources requests storage: "1Gi"
+      }
+    }]
   }
 }
 
@@ -59,6 +66,11 @@ _container: {
     protocol:      "TCP"
     _type: "LoadBalancer"
     _dnsName: "drone.nhyne.dev"
+    _nameOverride: "drone-server"
+  }]
+  volumeMounts: [{
+    name: "drone-home"
+    mountPath: "/var/lib/drone"
   }]
 }
 
