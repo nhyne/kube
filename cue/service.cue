@@ -8,6 +8,7 @@ service "\(k)-\(con.name)-\(p.name)": {
     namespace: AppMeta.namespace
     labels: AppMeta.labels
     name: "\(k)-\(con.name)-\(p.name)"
+    annotations "external-dns.alpha.kubernetes.io/hostname": p._dns_name if p._type == "LoadBalancer"
   }
   type:       p._type
 
@@ -22,3 +23,7 @@ service "\(k)-\(con.name)-\(p.name)": {
   for con in v.spec.template.spec.containers
   for p in con.ports
   if p._export
+
+serivce <Name>: _metadata_common_spec & {
+  
+}

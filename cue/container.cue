@@ -25,4 +25,5 @@ _port_spec: {
 	containerPort: >=0 & <=65535 & int
 	_export:       *true | false
 	_type:				 *"ClusterIp" | string if _export
+  _dns_name:     string if _type == "LoadBalancer"
 }
