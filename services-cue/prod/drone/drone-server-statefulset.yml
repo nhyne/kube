@@ -52,7 +52,8 @@ spec:
         image: drone/drone:1.0.0
         name: server
         ports:
-        - containerPort: 443
-          name: https-port
+        - name: https-port
+          port: 443
           protocol: TCP
+          targetPort: 443
       serviceAccountName: default

@@ -55,7 +55,7 @@ _container: {
   }]
   ports: [{
     name:          "https-port"
-    containerPort: 443
+    targetPort: 443
     protocol:      "TCP"
     _type: "LoadBalancer"
     _dns_name: "drone.nhyne.dev"

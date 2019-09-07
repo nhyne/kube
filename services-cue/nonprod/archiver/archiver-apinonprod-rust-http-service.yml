@@ -1,6 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: archiver.nhyne.dev
   labels:
     app: rust
     component: archiver-api
@@ -9,10 +11,10 @@ metadata:
   namespace: archiver
 spec:
   ports:
-  - port: 8000
+  - port: 443
     targetPort: 8000
   selector:
     app: rust
     component: archiver-api
     env: nonprod
-type: ClusterIp
+type: LoadBalancer

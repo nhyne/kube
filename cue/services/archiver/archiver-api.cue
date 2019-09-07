@@ -21,8 +21,11 @@ _container: {
 	}]
 	ports: [{
 		name:          "http"
-		containerPort: 8000
+		targetPort: 8000
+		port: 443
 		protocol:      "TCP"
+		_type: "LoadBalancer"
+		_dns_name: "archiver.nhyne.dev"
 	}]
 }
 
