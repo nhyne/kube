@@ -7,4 +7,7 @@ objectSets: [
 	service,
 	deployment,
   statefulSet,
+  serviceAccount,
+  clusterRole,
+  clusterRoleBinding,
 ]

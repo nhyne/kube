@@ -5,6 +5,7 @@ _container_spec: {
 	image: string
 	env: [..._env_spec]
 	ports: [..._port_spec]
+  args: [...string]
 }
 
 _env_spec: {

@@ -7,4 +7,5 @@ namespace "\(x)": {
 _namespaces: [
   "drone",
   "archiver",
+  "utility",
 ]

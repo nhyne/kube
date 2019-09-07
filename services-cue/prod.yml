@@ -12,6 +12,13 @@ metadata:
   name: archiver
 type: Namespace
 ---
+kind: v1
+metadata:
+  labels:
+    name: utility
+  name: utility
+type: Namespace
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -77,7 +84,8 @@ spec:
         env: prod
     spec:
       containers:
-      - env:
+      - args: []
+        env:
         - name: DATABASE_URL
           value: postgres://something:somethingelse@postgres:5432/archiver
         image: nhyne/archiver-api:0.0.1-alpha
@@ -86,6 +94,48 @@ spec:
         - containerPort: 8000
           name: something
           protocol: TCP
+      serviceAccountName: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: external-dns
+    component: external-dns
+    env: prod
+  name: external-dns
+  namespace: utility
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: external-dns
+      component: external-dns
+      env: prod
+  template:
+    metadata:
+      labels:
+        app: external-dns
+        component: external-dns
+        env: prod
+    spec:
+      containers:
+      - args:
+        - --source=service
+        - --source=ingress
+        - --domain-filter=nhyne.dev
+        - --domain-filter=nhyne.io
+        - --domain-filter=adamjohnson.dev
+        - --domain-filter=johnsona.dev
+        - --provider=google
+        - --registry=txt
+        - '--txt-owner-id=nhyne-kube-utility '
+        env: []
+        image: registry.opensource.zalan.do/teapot/external-dns:v0.5.11
+        name: external-dns
+        ports: []
+      serviceAccountName: external-dns
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -112,7 +162,8 @@ spec:
         env: prod
     spec:
       containers:
-      - env:
+      - args: []
+        env:
         - name: DRONE_KUBERNETES_ENABLED
           value: "true"
         - name: DRONE_KUBERNETES_NAMESPACE
@@ -143,4 +194,59 @@ spec:
         - containerPort: 443
           name: https-port
           protocol: TCP
+      serviceAccountName: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: external-dns
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: external-dns
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: external-dns-viewer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: external-dns
+subjects:
+- kind: ServiceAccount
+  name: external-dns
+  namespace: utility
 
