@@ -12,6 +12,7 @@ command dump: {
 	}
 }
 
+// TODO: Get "cluster" stuff into subfolders
 command files: {
   task: {
     "\(obj.metadata.name)-\(strings.ToLower(obj.kind))": file.Create & {
