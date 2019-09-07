@@ -1,6 +1,6 @@
 package kube
 
-_deployment "archiver-api\(_labels.env)": {
+_deployment "archiver-api-\(_labels.env)": {
 	_metadata
 
 	spec: {
@@ -13,7 +13,7 @@ _deployment "archiver-api\(_labels.env)": {
 }
 
 _container: {
-	image: "nhyne/archiver-api:0.0.1-alpha"
+	image: *"nhyne/archiver-api:0.0.1-alpha" | string
 	name:  "rust"
 	env: [{
 		name:  "DATABASE_URL"

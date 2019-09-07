@@ -1,6 +1,6 @@
 package kube
 
-_statefulSet "drone\(_labels.env)": {
+_statefulSet "drone-\(_labels.env)": {
 
   _metadata
   serviceName: "drone"

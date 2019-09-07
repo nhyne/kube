@@ -6,5 +6,8 @@ deployment <Name>: _apps_common_spec & {
 	_component: Name
 	spec replicas:             *1 | int
 	spec revisionHistoryLimit: *10 | int
-	spec template spec containers: [..._container_spec]
+	spec template spec:{
+    containers: [..._container_spec]
+    initContainers: [..._container_spec]
+  }
 }

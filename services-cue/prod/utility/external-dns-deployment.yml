@@ -37,4 +37,5 @@ spec:
         image: registry.opensource.zalan.do/teapot/external-dns:v0.5.11
         name: external-dns
         ports: []
+      initContainers: []
       serviceAccountName: external-dns

@@ -5,7 +5,7 @@ metadata:
     app: rust
     component: archiver-api
     env: nonprod
-  name: archiver-apinonprod-rust-http
+  name: archiver-api-nonprod-rust-http
   namespace: archiver
 spec:
   ports:
