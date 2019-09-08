@@ -13,6 +13,7 @@ _archiver_labels: _labels & {
 
 _deployment "archiver-api-nonprod": {
   _archiver_metadata
+  _flux: true
   spec selector matchLabels: _archiver_labels
   spec template metadata labels: _archiver_labels
   spec template spec initContainers: [{

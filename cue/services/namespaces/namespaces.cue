@@ -4,4 +4,5 @@ _namespaces: [
   "drone",
   "archiver",
   "utility",
+  "flux",
 ]

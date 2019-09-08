@@ -21,3 +21,12 @@ decrypt_secrets:
       --location global \
       --plaintext-file ./services/${ENV}/nogit/secrets.yml \
       --ciphertext-file ./services/${ENV}/secrets.yml.enc
+
+install_flux:
+	fluxctl install \
+	--git-user=nhyne \
+	--git-email=nhyne@nhyne.dev \
+	--git-url=git@github.com:nhyne/kube \
+	--git-branch=develop \
+	--git-path=services/nonprod/archiver \
+	--namespace=flux | kubectl apply -f -

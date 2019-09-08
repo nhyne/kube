@@ -2,8 +2,10 @@ package kube
 
 deployment <Name>: _apps_selector_common_spec & {
 	kind:       "Deployment"
+  _flux:      *false | true
 	_name:      Name
 	_component: Name
+  metadata annotations "fluxcd.io/automated": _flux if _flux
 	spec replicas:             *1 | int
 	spec revisionHistoryLimit: *10 | int
 	spec template spec:{
