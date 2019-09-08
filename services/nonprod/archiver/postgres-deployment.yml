@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,7 +35,7 @@ spec:
           value: somethingelse
         - name: POSTGRES_DB
           value: archiver
-        image: postgres:11.5-alpine
+        image: postgres:9.4-alpine
         name: postgres
         ports:
         - containerPort: 5432
