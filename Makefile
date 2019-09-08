@@ -1,6 +1,7 @@
 CLUSTER_NAME:=nhyne-cluster
 CLUSTER_ZONE:=us-central1-a
 ENV:=nonprod
+BRANCH:=master
 
 template:
 	find services -name "*.yml" -delete
@@ -27,6 +28,6 @@ install_flux:
 	--git-user=nhyne \
 	--git-email=nhyne@nhyne.dev \
 	--git-url=git@github.com:nhyne/kube \
-	--git-branch=develop \
+	--git-branch=${BRANCH} \
 	--git-path=services/nonprod/archiver \
 	--namespace=flux | kubectl apply -f -
