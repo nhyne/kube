@@ -4,7 +4,7 @@ metadata:
   labels:
     app: archiver
     component: archiver-api
-    env: nonprod
+    env: prod
   name: archiver-api
   namespace: archiver
 spec:
@@ -14,13 +14,13 @@ spec:
     matchLabels:
       app: archiver
       component: archiver-api
-      env: nonprod
+      env: prod
   template:
     metadata:
       labels:
         app: archiver
         component: archiver-api
-        env: nonprod
+        env: prod
     spec:
       containers:
       - args: []
@@ -35,15 +35,5 @@ spec:
           name: http
           protocol: TCP
         volumeMounts: []
-      initContainers:
-      - args:
-        - "30"
-        command:
-        - sleep
-        env: []
-        image: alpine:3.10.1
-        name: sleep
-        ports: []
-        volumeMounts: []
+      initContainers: []
       serviceAccountName: default
-  volumeClaimTemplates: []

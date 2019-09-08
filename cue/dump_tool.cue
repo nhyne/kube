@@ -18,7 +18,7 @@ command files: {
   task: {
     "\(obj.metadata.name)-\(strings.ToLower(obj.kind))-\(obj.metadata.labels.env)": file.Create & {
       Namespace = *obj.metadata.namespace | "cluster"
-      filename: "./services-cue/\(obj.metadata.labels.env)/\(Namespace)/\(obj.metadata.name)-\(strings.ToLower(obj.kind)).yml"
+      filename: "./services/\(obj.metadata.labels.env)/\(Namespace)/\(obj.metadata.name)-\(strings.ToLower(obj.kind)).yml"
       contents: yaml.Marshal(obj)
     } for obj in objects
   }

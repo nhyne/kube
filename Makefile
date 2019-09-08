@@ -22,5 +22,5 @@ forward_argo:
 	kubectl port-forward -n argocd service/argocd-server 8080:443
 
 template:
-	find services-cue -name "*.yml" -delete
+	find services -name "*.yml" -delete
 	cue files ./cue/...

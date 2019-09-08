@@ -38,7 +38,13 @@ spec:
           value: drone.nhyne.dev
         - name: DRONE_GITHUB_CLIENT_ID
           value: a633f44f1ac044185bb3
-        - name: DRONE_TLS_AUTOCERT
+        - name: DRONE_TLS_CERT
+          value: /etc/certs/drone.nhyne.dev/tls.crt
+        - name: DRONE_TLS_KEY
+          value: /etc/certs/drone.nhyne.dev/tls.key
+        - name: DRONE_SERVER_PROTO
+          value: https
+        - name: DRONE_GITHUB
           value: "true"
         - name: DRONE_GITHUB_CLIENT_SECRET
           valueFrom:
@@ -50,22 +56,17 @@ spec:
             secretKeyRef:
               key: drone_rpc_secret
               name: drone
-        image: drone/drone:1.0.0
+        image: drone/drone:1.3.1
         name: server
         ports:
         - containerPort: 443
           name: https-port
           protocol: TCP
         volumeMounts:
-        - mountPath: /var/lib/drone
-          name: drone-home
+        - mountPath: /etc/certs/drone.nhyne.dev/
+          name: tls-drone-vol
       serviceAccountName: default
-  volumeClaimTemplates:
-  - metadata:
-      name: drone-home
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi
+      volumes:
+      - name: tls-drone-vol
+        secret:
+          secretName: nhyne-dev-wild
