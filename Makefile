@@ -25,11 +25,11 @@ decrypt_secrets:
 
 install_flux:
 	fluxctl install \
-	--git-user=nhyne \
-	--git-email=nhyne@nhyne.dev \
+	--git-user=flux-ci \
+	--git-email=flux@nhyne.dev \
 	--git-url=git@github.com:nhyne/kube \
 	--git-branch=${BRANCH} \
-	--git-path=services/nonprod/archiver \
+	--git-path=services/${ENV} \
 	--namespace=flux | kubectl apply -f -
 
 namespaces:
