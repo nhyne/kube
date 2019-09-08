@@ -1,4 +1,5 @@
 package kube
+
 deployment: _deployment & {}
 
 clusterRoleBinding: _clusterRoleBinding & {}

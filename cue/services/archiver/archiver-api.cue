@@ -23,10 +23,10 @@ _container: {
 }
 
 _port: {
-		name:          "http"
-		containerPort: 8000
-		protocol:      "TCP"
-	}
+	name:          "http"
+	containerPort: 8000
+	protocol:      "TCP"
+}
 
 _metadata: {
 	metadata: {
@@ -36,5 +36,5 @@ _metadata: {
 }
 
 _labels: {
-	app:       "archiver"
+	app: "archiver"
 }
