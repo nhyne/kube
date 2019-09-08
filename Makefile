@@ -34,3 +34,6 @@ install_flux:
 
 namespaces:
 	find ./services/${ENV}/cluster/ -name "*-namespace.yml" -exec sh -c "kubectl apply -f {} ;" \;
+
+flux_sync:
+	fluxctl sync --k8s-fwd-ns flux
