@@ -2,12 +2,11 @@ package kube
 
 _drone_hostname: "drone.nhyne.dev"
 
-_statefulSet "drone-\(_labels.env)": {
+_deployment "drone-\(_labels.env)": {
 
   _metadata
 
   spec: {
-    serviceName: "drone"
     selector matchLabels: _labels
     template metadata labels: _labels
     template spec containers: [
