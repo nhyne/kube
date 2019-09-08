@@ -10,12 +10,12 @@ _metadata_common_spec: {
 
 _apps_common_spec: _metadata_common_spec & {
 	apiVersion: *"apps/v1" | string
-	_storage: *false | true
+	_storage:   *false | true
 
 	spec: {
 		template: {
 			spec serviceAccountName: *"default" | string
-			metadata labels: _common_labels_spec
+			metadata labels:         _common_labels_spec
 		}
 		volumeClaimTemplates: [..._volume_claim_template_spec] if _storage
 	}
