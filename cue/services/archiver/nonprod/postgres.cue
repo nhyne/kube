@@ -2,7 +2,6 @@ package kube
 
 deployment "postgres": {
 	_postgres_metadata
-	_flux: true
 
 	spec: {
 		selector matchLabels: _postgres_labels
