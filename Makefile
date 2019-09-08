@@ -31,3 +31,6 @@ install_flux:
 	--git-branch=${BRANCH} \
 	--git-path=services/nonprod/archiver \
 	--namespace=flux | kubectl apply -f -
+
+namespaces:
+	find ./services/${ENV}/cluster/ -name "*-namespace.yml" -exec sh -c "kubectl apply -f {} ;" \;
