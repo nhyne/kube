@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app: drone-server
@@ -9,12 +9,12 @@ metadata:
   namespace: drone
 spec:
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: drone-server
       component: drone
       env: prod
+  serviceName: drone
   template:
     metadata:
       labels:
@@ -65,9 +65,19 @@ spec:
         volumeMounts:
         - mountPath: /etc/certs/drone.nhyne.dev/
           name: tls-drone-vol
-      initContainers: []
+        - mountPath: /data
+          name: data
       serviceAccountName: default
       volumes:
       - name: tls-drone-vol
         secret:
           secretName: nhyne-dev-wild
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 25Gi

@@ -2,11 +2,14 @@ package kube
 
 _drone_hostname: "drone.nhyne.dev"
 
-_deployment "drone-\(_labels.env)": {
+_statefulSet "drone-\(_labels.env)": {
 
 	_metadata
 
+	_storage: true
+
 	spec: {
+		serviceName: "drone"
 		selector matchLabels: _labels
 		template metadata labels: _labels
 		template spec containers: [
@@ -16,6 +19,18 @@ _deployment "drone-\(_labels.env)": {
 			name: "tls-drone-vol"
 			secret secretName: "nhyne-dev-wild"
 		}]
+		volumeClaimTemplates: [{
+			_volume_claim_template
+
+		}]
+	}
+}
+
+_volume_claim_template: {
+	metadata name: "data"
+	spec: {
+		accessModes: ["ReadWriteOnce"]
+		resources requests storage: "25Gi"
 	}
 }
 
@@ -79,6 +94,9 @@ _container: {
 	volumeMounts: [{
 		name:      "tls-drone-vol"
 		mountPath: "/etc/certs/drone.nhyne.dev/"
+	}, {
+		name:      "data"
+		mountPath: "/data"
 	}]
 }
 

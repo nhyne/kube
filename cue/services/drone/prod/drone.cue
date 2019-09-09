@@ -1,6 +1,6 @@
 package kube
 
-deployment: _deployment & {}
+statefulSet: _statefulSet & {}
 
 clusterRoleBinding: _clusterRoleBinding & {}
 
