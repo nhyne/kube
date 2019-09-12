@@ -43,3 +43,32 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 }
 
+
+resource "google_container_node_pool" "memory_nodes" {
+  name     = "nhyne-memory-nodes"
+  location = "us-central1-a"
+  cluster  = google_container_cluster.primary.name
+
+  version = "1.12.8-gke.10"
+
+  node_count = 1
+
+  node_config {
+    preemptible  = true
+    machine_type = "n1-standard-1"
+    disk_size_gb = 25
+
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/compute",
+      "https://www.googleapis.com/auth/devstorage.read_only",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+      "https://www.googleapis.com/auth/ndev.clouddns.readwrite",
+    ]
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
