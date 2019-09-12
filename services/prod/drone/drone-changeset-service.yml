@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: drone-changeset
+    component: drone
+    env: prod
+  name: drone-changeset
+  namespace: drone
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: drone-changeset
+    component: drone
+    env: prod
+  type: ClusterIP

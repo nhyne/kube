@@ -64,8 +64,17 @@ _container: {
 	}, {
 		name:  "DRONE_SERVER_PROTO"
 		value: "https"
-	},
-		{
+	}, {
+		name: "DRONE_YAML_ENDPOINT"
+		value: "http://drone-changeset:3000"
+	}, {
+		name: "DRONE_YAML_SECRET"
+		valueFrom secretKeyRef: {
+				name: "drone"
+				key:  "drone_rpc_secret"
+			}
+			_secret: true
+	}, {
 			name:  "DRONE_GITHUB"
 			value: "true"
 		}, {
@@ -102,15 +111,15 @@ _container: {
 
 _metadata: {
 	metadata: {
-		name:      "drone-server"
-		namespace: "drone"
+		name:      *"drone-server" | string
+		namespace: *"drone" | string
 		labels:    _labels
 	}
 }
 
 _labels: {
-	component: "drone"
-	app:       "drone-server"
+	component: *"drone" | string
+	app:       *"drone-server" | string
 }
 
 _clusterRoleBinding "drone-rbac-\(_labels.env)": {
