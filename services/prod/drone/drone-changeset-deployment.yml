@@ -36,7 +36,7 @@ spec:
             secretKeyRef:
               key: drone_rpc_secret
               name: drone
-        image: microadam/drone-config-changeset-conditional:latest
+        image: microadam/drone-config-plugin-changeset-conditional:latest
         name: drone-changeset
         ports:
         - containerPort: 3000

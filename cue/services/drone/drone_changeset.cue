@@ -13,7 +13,7 @@ _deployment "drone-changeset-\(_labels.env)": {
 }
 
 _changeset_container: {
-  image: *"microadam/drone-config-changeset-conditional:latest" | string
+  image: *"microadam/drone-config-plugin-changeset-conditional:latest" | string
   name:  "drone-changeset"
   env: [{
       name: "GITHUB_TOKEN"
