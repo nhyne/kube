@@ -22,7 +22,10 @@ resource "google_container_node_pool" "primary_nodes" {
 
   version = "1.12.8-gke.10"
 
-  node_count = 1
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 4
+  }
 
   node_config {
     preemptible  = true
@@ -51,7 +54,10 @@ resource "google_container_node_pool" "memory_nodes" {
 
   version = "1.12.8-gke.10"
 
-  node_count = 1
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 3
+  }
 
   node_config {
     preemptible  = true
@@ -71,4 +77,3 @@ resource "google_container_node_pool" "memory_nodes" {
     create_before_destroy = true
   }
 }
-
