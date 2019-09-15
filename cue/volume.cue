@@ -3,7 +3,9 @@ package kube
 _volume_spec: {
 	_type: string
 	name:  string
-	emptyDir: {} if _type == "empty"
+	if _type == "empty" {
+		emptyDir: {}
+	}
 }
 
 _volume_mount_spec: {

@@ -17,7 +17,9 @@ _apps_common_spec: _metadata_common_spec & {
 			spec serviceAccountName: *"default" | string
 			metadata labels:         _common_labels_spec
 		}
-		volumeClaimTemplates: [..._volume_claim_template_spec] if _storage
+		if _storage {
+			volumeClaimTemplates: [..._volume_claim_template_spec]
+		}
 	}
 }
 

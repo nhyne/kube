@@ -1,8 +1,10 @@
 package kube
 
-namespace "\(x)-\(_labels.env)": {
-	_name: x
-	metadata labels: _labels
-} for x in _namespaces
+for x in _namespaces {
+	namespace "\(x)-\(_labels.env)": {
+		_name: x
+		metadata labels: _labels
+	}
+}
 
 _labels env: "prod"
