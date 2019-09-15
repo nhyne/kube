@@ -55,7 +55,7 @@ resource "google_container_node_pool" "memory_nodes" {
   version = "1.12.8-gke.10"
 
   autoscaling {
-    min_node_count = 1
+    min_node_count = 0
     max_node_count = 3
   }
 
