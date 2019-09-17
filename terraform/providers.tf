@@ -3,7 +3,7 @@ provider "google" {
   project     = "nhyne-233223"
   region      = "us-central1"
 
-  version = "~> 2.11"
+  version = "~> 2.15"
 }
 
 provider "null" {
@@ -13,4 +13,8 @@ provider "null" {
 provider "kubernetes" {
   # config_context_cluster   = ""
   version = "~> 1.9.0"
+}
+
+provider "random" {
+  version = "~> 2.2.0"
 }

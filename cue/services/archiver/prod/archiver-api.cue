@@ -1,20 +1,9 @@
 package kube
 
-deployment: _deployment & {}
+deployment: _archiver_deployment & {}
 
-_labels: {
-	env:       "prod"
-	component: "archiver-api"
-}
-
-_port: {
+_archiver_port: {
 	_port:    443
 	_type:    "LoadBalancer"
 	_dnsName: "archiver.nhyne.dev"
-}
-
-_metadata: {
-	metadata: {
-		name: "archiver-api"
-	}
 }
