@@ -1,0 +1,1 @@
+{"jobID":"35248241-11d5-b82c-66cf-4b772ec39f6b","spec":{"type":"policy","cause":{"Message":"local testing","User":"nhyne \u003cnhyne@nhyne.dev\u003e"},"spec":{"archiver:deployment/archiver-api":{"add":{"locked":"true","locked_msg":"local testing","locked_user":"nhyne \u003cnhyne@nhyne.dev\u003e"},"remove":{}}}},"result":null}
