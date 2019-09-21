@@ -9,6 +9,23 @@ resource "google_container_cluster" "primary" {
 
   logging_service = "none"
 
+  network    = google_compute_network.kube_network.self_link
+  subnetwork = google_compute_subnetwork.central_subnetwork.self_link
+
+  ip_allocation_policy {
+    use_ip_aliases = true
+  }
+  master_authorized_networks_config {
+    cidr_blocks {
+      cidr_block = "0.0.0.0/0"
+    }
+  }
+
+    private_cluster_config {
+      enable_private_nodes = true
+      master_ipv4_cidr_block = "10.3.0.0/28"
+    }
+
   master_auth {
     username = ""
     password = ""
@@ -22,7 +39,11 @@ resource "google_container_node_pool" "primary_nodes" {
 
   version = "1.12.8-gke.10"
 
-  node_count = 1
+  initial_node_count = 1
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 4
+  }
 
   node_config {
     preemptible  = true
@@ -51,7 +72,11 @@ resource "google_container_node_pool" "memory_nodes" {
 
   version = "1.12.8-gke.10"
 
-  node_count = 1
+  initial_node_count = 1
+  autoscaling {
+    min_node_count = 0
+    max_node_count = 3
+  }
 
   node_config {
     preemptible  = true
@@ -71,4 +96,3 @@ resource "google_container_node_pool" "memory_nodes" {
     create_before_destroy = true
   }
 }
-

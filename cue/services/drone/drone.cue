@@ -65,33 +65,33 @@ _container: {
 		name:  "DRONE_SERVER_PROTO"
 		value: "https"
 	}, {
-		name: "DRONE_YAML_ENDPOINT"
+		name:  "DRONE_YAML_ENDPOINT"
 		value: "http://drone-changeset:3000"
 	}, {
 		name: "DRONE_YAML_SECRET"
 		valueFrom secretKeyRef: {
-				name: "drone"
-				key:  "drone_rpc_secret"
-			}
-			_secret: true
+			name: "drone"
+			key:  "drone_rpc_secret"
+		}
+		_secret: true
 	}, {
-			name:  "DRONE_GITHUB"
-			value: "true"
-		}, {
-			name: "DRONE_GITHUB_CLIENT_SECRET"
-			valueFrom secretKeyRef: {
-				name: "drone"
-				key:  "client_secret"
-			}
-			_secret: true
-		}, {
-			name: "DRONE_RPC_SECRET"
-			valueFrom secretKeyRef: {
-				name: "drone"
-				key:  "drone_rpc_secret"
-			}
-			_secret: true
-		}]
+		name:  "DRONE_GITHUB"
+		value: "true"
+	}, {
+		name: "DRONE_GITHUB_CLIENT_SECRET"
+		valueFrom secretKeyRef: {
+			name: "drone"
+			key:  "client_secret"
+		}
+		_secret: true
+	}, {
+		name: "DRONE_RPC_SECRET"
+		valueFrom secretKeyRef: {
+			name: "drone"
+			key:  "drone_rpc_secret"
+		}
+		_secret: true
+	}]
 	ports: [{
 		name:          "https-port"
 		containerPort: 443

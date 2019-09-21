@@ -17,10 +17,12 @@ command dump: {
 // TODO: Get "cluster" stuff into subfolders
 command files: {
 	task: {
-		"\(obj.metadata.name)-\(strings.ToLower(obj.kind))-\(obj.metadata.labels.env)": file.Create & {
-			Namespace = *obj.metadata.namespace | "cluster"
-			filename: "./services/\(obj.metadata.labels.env)/\(Namespace)/\(obj.metadata.name)-\(strings.ToLower(obj.kind)).yml"
-			contents: yaml.Marshal(obj)
-		} for obj in objects
+		for obj in objects {
+			"\(obj.metadata.name)-\(strings.ToLower(obj.kind))-\(obj.metadata.labels.env)": file.Create & {
+				Namespace = *obj.metadata.namespace | "cluster"
+				filename: "./services/\(obj.metadata.labels.env)/\(Namespace)/\(obj.metadata.name)-\(strings.ToLower(obj.kind)).yml"
+				contents: yaml.Marshal(obj)
+			}
+		}
 	}
 }

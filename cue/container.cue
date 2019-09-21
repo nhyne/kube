@@ -11,15 +11,19 @@ _container_spec: {
 }
 
 _env_spec: {
-	name:    string
-	value:   string if !_secret
+	name: string
+	if !_secret {
+		value: string
+	}
 	_secret: *false | true
-	valueFrom: {
-		secretKeyRef: {
-			name: string
-			key:  string
+	if _secret {
+		valueFrom: {
+			secretKeyRef: {
+				name: string
+				key:  string
+			}
 		}
-	} if _secret
+	}
 }
 
 _port_spec: {
@@ -29,6 +33,10 @@ _port_spec: {
 	_targetPort:   *containerPort | >=0 & <=65535 & int
 	_port:         *_targetPort | >=0 & <=65535 & int
 	_export:       *true | false
-	_type:         *"ClusterIP" | string if _export
-	_dnsName:      string if _type == "LoadBalancer"
+	if _export {
+		_type: *"ClusterIP" | string
+	}
+	if _type == "LoadBalancer" {
+		_dnsName: string
+	}
 }

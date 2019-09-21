@@ -1,40 +1,44 @@
 package kube
 
-_deployment "archiver-api-\(_labels.env)": {
-	_metadata
+_archiver_deployment "archiver-api-\(_labels.env)": {
+	_archiver_metadata
 
 	spec: {
-		selector matchLabels: _labels
-		template metadata labels: _labels
+		selector matchLabels: _archiver_labels
+		template metadata labels: _archiver_labels
 		template spec containers: [
-			_container,
+			_archiver_container,
 		]
 	}
 }
 
-_container: {
+_archiver_container: {
 	image: *"nhyne/archiver-api:0.0.1-alpha" | string
 	name:  "rust"
 	env: [{
-		name:  "DATABASE_URL"
-		value: "postgres://something:somethingelse@postgres:5432/archiver"
+		name: "DATABASE_URL"
+		valueFrom secretKeyRef: {
+			name: "archiver"
+			key:  "database_url"
+		}
+		_secret: true
 	}]
-	ports: [_port]
+	ports: [_archiver_port]
 }
 
-_port: {
+_archiver_port: {
 	name:          "http"
 	containerPort: 8000
 	protocol:      "TCP"
 }
 
-_metadata: {
+_archiver_metadata: _metadata & {
 	metadata: {
-		namespace: "archiver"
-		labels:    _labels
+		name:   "archiver-api"
+		labels: _archiver_labels
 	}
 }
 
-_labels: {
-	app: "archiver"
+_archiver_labels: _labels & {
+	component: "archiver-api"
 }

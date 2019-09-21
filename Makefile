@@ -1,7 +1,12 @@
-CLUSTER_NAME:=nhyne-cluster
-CLUSTER_ZONE:=us-central1-a
 ENV:=nonprod
 BRANCH:=master
+
+context:
+ifeq ($(ENV), nonprod)
+	kubectl config use-context minikube
+else
+	kubectl config use-context nhyne
+endif
 
 template:
 	find services -name "*.yml" -delete
@@ -23,7 +28,10 @@ decrypt_secrets:
       --plaintext-file ./services/${ENV}/nogit/secrets.yml \
       --ciphertext-file ./services/${ENV}/secrets.yml.enc
 
-install_flux:
+secrets: context decrypt_secrets
+	kubectl apply -f ./services/${ENV}/nogit/secrets.yml
+
+flux: context
 	fluxctl install \
 	--git-user=flux-ci \
 	--git-email=flux@nhyne.dev \
@@ -32,8 +40,10 @@ install_flux:
 	--git-path=services/${ENV} \
 	--namespace=flux | kubectl apply -f -
 
+install_flux: flux secrets
+
 namespaces:
 	find ./services/${ENV}/cluster/ -name "*-namespace.yml" -exec sh -c "kubectl apply -f {} ;" \;
 
-flux_sync:
+sync_flux:
 	fluxctl sync --k8s-fwd-ns flux
