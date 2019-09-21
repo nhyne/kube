@@ -8,10 +8,6 @@ metadata:
     env: prod
   name: archiver-api
   namespace: archiver
-  annotations:
-    fluxcd.io/locked_msg: local testing
-    fluxcd.io/locked_user: nhyne <nhyne@nhyne.dev>
-    fluxcd.io/locked: 'true'
 spec:
   replicas: 1
   revisionHistoryLimit: 10
