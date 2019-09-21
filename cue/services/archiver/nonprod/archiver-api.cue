@@ -13,7 +13,3 @@ _archiver_deployment "archiver-api-nonprod": {
 		args: ["30"]
 	}]
 }
-
-_archiver_metadata: {
-	metadata annotations "fluxcd.io/tag.rust": "regex:.*"
-}
