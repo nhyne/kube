@@ -7,3 +7,7 @@ _archiver_port: {
 	_type:    "LoadBalancer"
 	_dnsName: "archiver.nhyne.dev"
 }
+
+_archiver_metadata: {
+	metadata annotations "fluxcd.io/tag.rust": "semver:~0.1"
+}

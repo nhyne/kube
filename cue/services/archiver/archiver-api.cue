@@ -36,6 +36,10 @@ _archiver_metadata: _metadata & {
 	metadata: {
 		name:   "archiver-api"
 		labels: _archiver_labels
+		annotations: {
+			"fluxcd.io/automated": "true"
+			"fluxcd.io/tag.rust":  string
+		}
 	}
 }
 

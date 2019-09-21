@@ -1,6 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.rust: regex:.*
   labels:
     app: archiver
     component: archiver-api
