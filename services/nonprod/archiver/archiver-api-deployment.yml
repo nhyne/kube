@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -33,7 +34,7 @@ spec:
             secretKeyRef:
               key: database_url
               name: archiver
-        image: nhyne/archiver-api:0.0.1-alpha
+        image: nhyne/archiver-api:0.1.1-beta.2
         name: rust
         ports:
         - containerPort: 8000
@@ -46,7 +47,7 @@ spec:
         command:
         - sleep
         env: []
-        image: alpine:3.10.1
+        image: alpine:3
         name: sleep
         ports: []
         volumeMounts: []
