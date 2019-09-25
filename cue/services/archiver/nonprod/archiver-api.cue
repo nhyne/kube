@@ -3,6 +3,11 @@ package kube
 deployment: _archiver_deployment & {
 }
 
+_archiver_port: {
+	_port:    80
+	_type:    "NodePort"
+}
+
 _archiver_deployment "archiver-api-nonprod": {
 	_archiver_metadata
 
