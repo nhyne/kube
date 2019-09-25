@@ -30,6 +30,9 @@ _archiver_port: {
 	name:          "http"
 	containerPort: 8000
 	protocol:      "TCP"
+	_port:         80
+	_type:         "LoadBalancer"
+	_dnsName:      "archiver.nhyne.dev"
 }
 
 _archiver_metadata: _metadata & {
