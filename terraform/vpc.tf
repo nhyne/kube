@@ -34,13 +34,25 @@ resource "google_compute_router_nat" "nat" {
   }
 }
 
-resource "google_compute_firewall" "default" {
-  name    = "allow-https-kube"
+resource "google_compute_firewall" "kube_vpc_firewall_https" {
+  name    = "${google_container_cluster.primary.name}-allow-https-kube"
   network = google_compute_network.kube_network.name
 
   allow {
     protocol = "tcp"
     ports = ["443"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
+resource "google_compute_firewall" "kube_vpc_firewall_ssh" {
+  name    = "${google_container_cluster.primary.name}-allow-ssh-kube"
+  network = google_compute_network.kube_network.name
+
+  allow {
+    protocol = "tcp"
+    ports = ["22"]
   }
 
   source_ranges = ["0.0.0.0/0"]
