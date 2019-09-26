@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   annotations:
     fluxcd.io/automated: "true"
+    fluxcd.io/tag.sleep: semver:~3.10.1
   labels:
     app: archiver
     component: archiver-api
@@ -46,7 +47,7 @@ spec:
         command:
         - sleep
         env: []
-        image: alpine:3
+        image: alpine:20190925
         name: sleep
         ports: []
         volumeMounts: []
