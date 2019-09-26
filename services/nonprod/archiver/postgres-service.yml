@@ -9,11 +9,11 @@ metadata:
   namespace: archiver
 spec:
   ports:
-  - name: tcp-postgres
+  - name: tcp
     port: 5432
     targetPort: 5432
   selector:
     app: archiver
     component: database
     env: nonprod
-  type: ClusterIP
+  type: NodePort
