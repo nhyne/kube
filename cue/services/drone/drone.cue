@@ -99,6 +99,7 @@ _container: {
 		_type:         "LoadBalancer"
 		_dnsName:      _drone_hostname
 		_nameOverride: "drone-server"
+		_portName:     "https-drone-server"
 	}]
 	volumeMounts: [{
 		name:      "tls-drone-vol"

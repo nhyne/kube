@@ -4,8 +4,8 @@ deployment: _archiver_deployment & {
 }
 
 _archiver_port: {
-	_port:    80
-	_type:    "NodePort"
+	_port: 80
+	_type: "NodePort"
 }
 
 _archiver_deployment "archiver-api-nonprod": {

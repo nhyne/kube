@@ -24,9 +24,10 @@ _postgres_container: {
 		value: "archiver"
 	}]
 	ports: [{
-		name:          "postgres"
+		name:          "tls-postgres"
 		containerPort: 5432
 		_nameOverride: "postgres"
+		_portName:     "tls-postgres"
 	}]
 }
 

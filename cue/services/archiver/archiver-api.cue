@@ -30,6 +30,7 @@ _archiver_port: {
 	name:          "http"
 	containerPort: 8000
 	protocol:      "TCP"
+	_portName:     "http-archiver"
 }
 
 _archiver_metadata: _metadata & {

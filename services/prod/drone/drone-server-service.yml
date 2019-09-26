@@ -11,7 +11,8 @@ metadata:
   namespace: drone
 spec:
   ports:
-  - port: 443
+  - name: https-drone-server
+    port: 443
     targetPort: 443
   selector:
     app: drone-server

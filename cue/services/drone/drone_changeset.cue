@@ -38,6 +38,7 @@ _changeset_port: {
 	containerPort: 3000
 	protocol:      "TCP"
 	_nameOverride: "drone-changeset"
+	_portName:     "http-drone-changeset"
 }
 
 _changeset_metadata: _metadata & {

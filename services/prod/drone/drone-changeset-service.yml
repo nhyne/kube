@@ -9,7 +9,8 @@ metadata:
   namespace: drone
 spec:
   ports:
-  - port: 3000
+  - name: http-drone-changeset
+    port: 3000
     targetPort: 3000
   selector:
     app: drone-changeset

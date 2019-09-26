@@ -23,6 +23,7 @@ if p._export {
 			Port = p["containerPort"] // Port is an alias
 			port:       *p._port | Port
 			targetPort: Port
+			name:       p._portName
 		}]
 
 	}
