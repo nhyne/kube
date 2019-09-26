@@ -3,5 +3,6 @@ kind: Namespace
 metadata:
   labels:
     env: prod
+    istio-injection: enabled
     name: archiver
   name: archiver

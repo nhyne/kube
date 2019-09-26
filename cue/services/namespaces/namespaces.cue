@@ -1,8 +1,13 @@
 package kube
 
 _namespaces: [
-	"drone",
-	"archiver",
-	"utility",
-	"flux",
+	{
+		"drone": true
+	}, {
+		"archiver": true
+	}, {
+		"utility": false
+	}, {
+		"flux": false
+	},
 ]

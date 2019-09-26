@@ -3,5 +3,6 @@ kind: Namespace
 metadata:
   labels:
     env: nonprod
+    istio-injection: enabled
     name: drone
   name: drone
