@@ -36,7 +36,7 @@ spec:
         name: postgres
         ports:
         - containerPort: 5432
-          name: tls-postgres
+          name: tcp-postgres
           protocol: TCP
         volumeMounts: []
       initContainers: []
