@@ -10,6 +10,7 @@ _archiver_port: {
 
 _archiver_deployment "archiver-api-nonprod": {
 	_archiver_metadata
+    metadata annotations "fluxcd.io/tag.sleep": "semver:~3.10.1"
 
 	spec template spec initContainers: [{
 		name:  "sleep"
