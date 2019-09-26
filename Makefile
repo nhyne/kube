@@ -40,7 +40,7 @@ flux: context
 	--git-path=services/${ENV} \
 	--namespace=flux | kubectl apply -f -
 
-install_flux: flux secrets
+install_flux: namespaces flux secrets
 
 namespaces:
 	find ./services/${ENV}/cluster/ -name "*-namespace.yml" -exec sh -c "kubectl apply -f {} ;" \;
