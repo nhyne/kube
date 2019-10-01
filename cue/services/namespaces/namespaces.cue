@@ -5,4 +5,5 @@ _namespaces: [
 	"archiver",
 	"utility",
 	"flux",
+  "user",
 ]
