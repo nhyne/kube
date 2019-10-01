@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -47,7 +48,7 @@ spec:
         command:
         - sleep
         env: []
-        image: alpine:20190925
+        image: alpine:3.10.1
         name: sleep
         ports: []
         volumeMounts: []
