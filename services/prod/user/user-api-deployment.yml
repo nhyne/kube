@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.rust: semver:~0.1
+  labels:
+    app: user
+    component: user-api
+    env: prod
+  name: user-api
+  namespace: user
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: user
+      component: user-api
+      env: prod
+  template:
+    metadata:
+      labels:
+        app: user
+        component: user-api
+        env: prod
+    spec:
+      containers:
+      - args: []
+        command: []
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: user
+        image: nhyne/user-api:0.1.1-beta.3
+        name: rust
+        ports:
+        - containerPort: 8001
+          name: http
+          protocol: TCP
+        volumeMounts: []
+      initContainers: []
+      serviceAccountName: default
