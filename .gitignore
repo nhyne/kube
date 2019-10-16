@@ -5,3 +5,7 @@
 *.pkcs12
 .idea
 
+local_server.crt
+local_server.csr
+local_server.key
+local_server_pass.key
