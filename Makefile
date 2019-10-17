@@ -49,7 +49,4 @@ sync_flux:
 	fluxctl sync --k8s-fwd-ns flux
 
 generate_local_cert:
-	openssl genrsa -des3 -out local_server_pass.key 1024
-	openssl req -new -key local_server_pass.key -out local_server.csr
-	openssl x509 -req -days 365 -in local_server.csr -signkey local_server_pass.key -out local_server.crt
-	openssl rsa -in local_server_pass.key -out local_server.key
+	./scripts/localhost.sh
