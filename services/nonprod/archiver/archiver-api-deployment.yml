@@ -48,7 +48,7 @@ spec:
         command:
         - sleep
         env: []
-        image: alpine:3.10.2
+        image: alpine:3.10.3
         name: sleep
         ports: []
         volumeMounts: []
