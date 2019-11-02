@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazel-remote-cache
+  namespace: build
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: bazel-remote-cache
+  template:
+    metadata:
+      labels:
+        service: bazel-remote-cache
+    spec:
+      containers:
+      - name: bazel-cache
+        image: buchgr/bazel-remote-cache
+        resources:
+          limits:
+            cpu: 1
+            memory: 400Mi
+          requests:
+            cpu: 200m
+            memory: 100Mi
+        args:
+          - --htpasswd_file=/etc/bazel-remote/htpasswd
+          - --max_size=5
+        ports:
+        - name: http
+          containerPort: 8080
+        volumeMounts:
+        - name: htaccess-file
+          mountPath: /etc/bazel-remote
+      volumes:
+      - name: htaccess-file
+        secret:
+          secretName: htaccess
+          items:
+          - key: htaccess
+            path: htpasswd
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: bazel-remote-cache
+  name: bazel-remote-cache
+  namespace: build
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    service: bazel-remote-cache
+  type: NodePort
