@@ -9,10 +9,19 @@ metadata:
   namespace: archiver
 spec:
   ports:
-  - port: 80
+  - port: 8000
     targetPort: 8000
   selector:
     app: archiver
     component: archiver-api
     env: nonprod
   type: NodePort
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: archiver
+  namespace: ambassador
+spec:
+  prefix: /
+  service: archiver-api-nonprod-rust-http.archiver:8000
