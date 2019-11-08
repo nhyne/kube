@@ -4,5 +4,5 @@ _namespaces: [
 	"archiver",
 	"utility",
 	"flux",
-  "ambassador",
+	"ambassador",
 ]
