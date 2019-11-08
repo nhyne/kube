@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    fluxcd.io/automated: "true"
     fluxcd.io/tag.sleep: semver:~3.10.1
   labels:
     app: archiver
@@ -34,7 +33,7 @@ spec:
             secretKeyRef:
               key: database_url
               name: archiver
-        image: nhyne/archiver-api:0.1.1-beta.3
+        image: archiver-api:v0.0.0-test-tag
         name: rust
         ports:
         - containerPort: 8000
