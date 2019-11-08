@@ -1,12 +1,12 @@
 package kube
 
-_archiver_deployment "archiver-api-\(_labels.env)": {
+_archiver_deployment: "archiver-api-\(_labels.env)": {
 	_archiver_metadata
 
 	spec: {
-		selector matchLabels: _archiver_labels
-		template metadata labels: _archiver_labels
-		template spec containers: [
+		selector: matchLabels: _archiver_labels
+		template: metadata: labels: _archiver_labels
+		template: spec: containers: [
 			_archiver_container,
 		]
 	}
@@ -17,7 +17,7 @@ _archiver_container: {
 	name:  "rust"
 	env: [{
 		name: "DATABASE_URL"
-		valueFrom secretKeyRef: {
+		valueFrom: secretKeyRef: {
 			name: "archiver"
 			key:  "database_url"
 		}
@@ -30,6 +30,7 @@ _archiver_port: {
 	name:          "http"
 	containerPort: 8000
 	protocol:      "TCP"
+	_nameOverride: "archiver-api"
 }
 
 _archiver_metadata: _metadata & {

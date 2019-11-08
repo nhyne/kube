@@ -251,7 +251,7 @@ metadata:
   name: ambassador
   namespace: ambassador
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       service: ambassador
@@ -326,6 +326,8 @@ kind: Service
 metadata:
   name: ambassador
   namespace: ambassador
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: archiver.nhyne.dev,user.nhyne.dev
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
@@ -334,3 +336,21 @@ spec:
      targetPort: 8080
   selector:
     service: ambassador
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: archiver-api
+spec:
+  prefix: /
+  service: archiver-api-nonprod-rust-http.archiver
+  host: archiver.nhyne.dev
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: user-api
+spec:
+  prefix: /
+  service: user-api.user
+  host: user.nhyne.dev
