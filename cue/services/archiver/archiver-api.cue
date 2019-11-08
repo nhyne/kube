@@ -13,7 +13,7 @@ _archiver_deployment: "archiver-api-\(_labels.env)": {
 }
 
 _archiver_container: {
-	image: *"nhyne/archiver-api:0.1.1-beta.3" | string
+	image: *"archiver-api:v0.0.0-test-tag" | string
 	name:  "rust"
 	env: [{
 		name: "DATABASE_URL"
@@ -38,7 +38,6 @@ _archiver_metadata: _metadata & {
 		name:   "archiver-api"
 		labels: _archiver_labels
 		annotations: {
-			"fluxcd.io/automated": "true"
 		}
 	}
 }
