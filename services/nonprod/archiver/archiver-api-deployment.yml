@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,7 +35,7 @@ spec:
             secretKeyRef:
               key: database_url
               name: archiver
-        image: nhyne/archiver-api:0.1.1-beta.3
+        image: nhyne/archiver-api:v0.0.0-test-tag
         name: rust
         ports:
         - containerPort: 8000
