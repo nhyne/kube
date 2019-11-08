@@ -9,5 +9,5 @@ _archiver_port: {
 }
 
 _archiver_metadata: {
-	metadata annotations "fluxcd.io/tag.rust": "semver:~0.1"
+	metadata: annotations: "fluxcd.io/tag.rust": "semver:~0.1"
 }

@@ -7,15 +7,15 @@ import (
 	"strings"
 )
 
-command dump: {
-	task print: cli.Print & {
+command: dump: {
+	task: print: cli.Print & {
 		text: yaml.MarshalStream(objects)
 	}
 }
 
 // If there is an issue with "kind" missing, it's because one of the things getting templated has a matching name
 // TODO: Get "cluster" stuff into subfolders
-command files: {
+command: files: {
 	task: {
 		for obj in objects {
 			"\(obj.metadata.name)-\(strings.ToLower(obj.kind))-\(obj.metadata.labels.env)": file.Create & {

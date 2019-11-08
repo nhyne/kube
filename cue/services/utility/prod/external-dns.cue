@@ -1,12 +1,12 @@
 package kube
 
-deployment "external-dns": {
+deployment: "external-dns": {
 	_metadata
 
 	spec: {
-		selector matchLabels: _labels
-		template metadata labels: _labels
-		template spec: {
+		selector: matchLabels: _labels
+		template: metadata: labels: _labels
+		template: spec: {
 			serviceAccountName: "external-dns"
 			containers: [
 				_container,
@@ -45,7 +45,7 @@ _labels: {
 	env:       "prod"
 }
 
-serviceAccount "external-dns": {
+serviceAccount: "external-dns": {
 	apiVersion: "v1"
 	kind:       "ServiceAccount"
 	metadata: {
@@ -54,7 +54,7 @@ serviceAccount "external-dns": {
 		labels:    _labels
 	}
 }
-clusterRole "external-dns": {
+clusterRole: "external-dns": {
 	apiVersion: "rbac.authorization.k8s.io/v1beta1"
 	kind:       "ClusterRole"
 	metadata: {
@@ -79,7 +79,7 @@ clusterRole "external-dns": {
 		verbs: ["list"]
 	}]
 }
-clusterRoleBinding "external-dns-viewer": {
+clusterRoleBinding: "external-dns-viewer": {
 	apiVersion: "rbac.authorization.k8s.io/v1beta1"
 	kind:       "ClusterRoleBinding"
 	metadata: {

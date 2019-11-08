@@ -7,7 +7,7 @@ metadata:
     app: archiver
     component: archiver-api
     env: prod
-  name: archiver-api-prod-rust-http
+  name: archiver-api
   namespace: archiver
 spec:
   ports:
