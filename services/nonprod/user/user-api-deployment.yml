@@ -31,13 +31,16 @@ spec:
             secretKeyRef:
               key: database_url
               name: user
-        image: nhyne/user-api:0.1.1-beta.3
+        image: nhyne/user-api:0.0.1-alpha
         name: rust
         ports:
         - containerPort: 8001
           name: http
           protocol: TCP
-        volumeMounts: []
+        volumeMounts:
+        - mountPath: /etc/ssl/certs/
+          name: tls-certs
+          readOnly: false
       initContainers:
       - args:
         - "30"
@@ -49,3 +52,8 @@ spec:
         ports: []
         volumeMounts: []
       serviceAccountName: default
+      volumes:
+      - name: tls-certs
+        readOnly: true
+        secret:
+          secretName: rocket-tls

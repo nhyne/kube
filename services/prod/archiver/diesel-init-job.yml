@@ -33,6 +33,7 @@ spec:
         volumeMounts:
         - mountPath: /home
           name: git
+          readOnly: false
         workingDir: /home/archiver-api/
       initContainers:
       - args:
@@ -48,6 +49,7 @@ spec:
         volumeMounts:
         - mountPath: /tmp/git
           name: git
+          readOnly: false
       - args:
         - -la
         - /home/archiver-api
@@ -60,6 +62,7 @@ spec:
         volumeMounts:
         - mountPath: /home
           name: git
+          readOnly: false
       restartPolicy: Never
       serviceAccountName: default
       volumes:
