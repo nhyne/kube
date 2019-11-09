@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   labels:
     env: prod
-    name: drone
-  name: drone
+    name: ambassador
+  name: ambassador

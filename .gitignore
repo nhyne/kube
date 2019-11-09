@@ -5,3 +5,5 @@
 *.pkcs12
 .idea
 
+localhost.key
+localhost.crt

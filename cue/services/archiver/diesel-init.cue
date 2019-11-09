@@ -1,19 +1,19 @@
 package kube
 
-_diesel_init_job "diesel-init-\(_labels.env)": {
+_diesel_init_job: "diesel-init-\(_labels.env)": {
 	_diesel_init_metadata
 
 	spec: {
-		template spec restartPolicy: "Never"
-		template metadata labels:    _diesel_init_labels
-		template spec containers: [
+		template: spec: restartPolicy: "Never"
+		template: metadata: labels:    _diesel_init_labels
+		template: spec: containers: [
 			_diesel_container,
 		]
-		template spec initContainers: [
+		template: spec: initContainers: [
 			_git_sync_container,
 			_ls_container,
 		]
-		template spec volumes: [{
+		template: spec: volumes: [{
 			name:  "git"
 			_type: "empty"
 		}]
@@ -50,7 +50,7 @@ _diesel_container: {
 	workingDir: "/home/archiver-api/"
 	env: [{
 		name: "DATABASE_URL"
-		valueFrom secretKeyRef: {
+		valueFrom: secretKeyRef: {
 			name: "archiver"
 			key:  "database_url"
 		}

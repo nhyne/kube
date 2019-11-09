@@ -33,6 +33,7 @@ _port_spec: {
 	_targetPort:   *containerPort | >=0 & <=65535 & int
 	_port:         *_targetPort | >=0 & <=65535 & int
 	_export:       *true | false
+	_type:         string
 	if _export {
 		_type: *"ClusterIP" | string
 	}
