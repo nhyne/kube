@@ -1,8 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    fluxcd.io/tag.sleep: semver:~3.10.1
+  annotations: {}
   labels:
     app: archiver
     component: archiver-api
@@ -33,7 +32,7 @@ spec:
             secretKeyRef:
               key: database_url
               name: archiver
-        image: archiver-api:v0.0.0-test-tag
+        image: archiver-api:0.1.1-beta.4
         name: rust
         ports:
         - containerPort: 8000

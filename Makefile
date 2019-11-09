@@ -32,13 +32,7 @@ secrets: context decrypt_secrets
 	kubectl apply -f ./services/${ENV}/nogit/secrets.yml
 
 flux: context
-	fluxctl install \
-	--git-user=flux-ci \
-	--git-email=flux@nhyne.dev \
-	--git-url=git@github.com:nhyne/kube \
-	--git-branch=${BRANCH} \
-	--git-path=services/${ENV} \
-	--namespace=flux | kubectl apply -f -
+	kubectl apply -f ./services/${ENV}/flux/
 
 install_flux: namespaces flux secrets
 
