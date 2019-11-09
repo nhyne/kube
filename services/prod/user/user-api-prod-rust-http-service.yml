@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: user
+    component: user-api
+    env: prod
+  name: user-api-prod-rust-http
+  namespace: user
+spec:
+  ports:
+  - port: 8001
+    targetPort: 8001
+  selector:
+    app: user
+    component: user-api
+    env: prod
+  type: ClusterIP

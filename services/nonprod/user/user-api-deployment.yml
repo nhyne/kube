@@ -1,26 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: {}
   labels:
-    app: archiver
-    component: archiver-api
+    app: user
+    component: user-api
     env: nonprod
-  name: archiver-api
-  namespace: archiver
+  name: user-api
+  namespace: user
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: archiver
-      component: archiver-api
+      app: user
+      component: user-api
       env: nonprod
   template:
     metadata:
       labels:
-        app: archiver
-        component: archiver-api
+        app: user
+        component: user-api
         env: nonprod
     spec:
       containers:
@@ -31,22 +30,30 @@ spec:
           valueFrom:
             secretKeyRef:
               key: database_url
-              name: archiver
-        image: nhyne/archiver-api:0.1.1-beta.4
+              name: user
+        image: nhyne/user-api:0.0.1-alpha
         name: rust
         ports:
-        - containerPort: 8000
+        - containerPort: 8001
           name: http
           protocol: TCP
-        volumeMounts: []
+        volumeMounts:
+        - mountPath: /etc/ssl/certs/
+          name: tls-certs
+          readOnly: false
       initContainers:
       - args:
         - "30"
         command:
         - sleep
         env: []
-        image: alpine:3.10.2
+        image: alpine:3.10.1
         name: sleep
         ports: []
         volumeMounts: []
       serviceAccountName: default
+      volumes:
+      - name: tls-certs
+        readOnly: true
+        secret:
+          secretName: rocket-tls
