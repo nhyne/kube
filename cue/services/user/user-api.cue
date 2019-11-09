@@ -36,9 +36,6 @@ _user_metadata: _metadata & {
   metadata: {
     name:   "user-api"
     labels: _user_labels
-    annotations: {
-      "fluxcd.io/automated": "true"
-    }
   }
 }
 

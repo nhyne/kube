@@ -9,10 +9,10 @@ metadata:
   namespace: user
 spec:
   ports:
-  - port: 80
+  - port: 8001
     targetPort: 8001
   selector:
     app: user
     component: user-api
     env: nonprod
-  type: NodePort
+  type: ClusterIP
