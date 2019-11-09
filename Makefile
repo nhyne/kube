@@ -32,7 +32,7 @@ secrets: context decrypt_secrets
 	kubectl apply -f ./services/${ENV}/nogit/secrets.yml
 
 flux: context
-	kubectl apply -f ./services/${ENV}/flux/
+	kubectl apply -f ./services/other/flux-${ENV}/
 
 install_flux: namespaces flux secrets
 
