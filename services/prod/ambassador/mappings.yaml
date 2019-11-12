@@ -6,7 +6,7 @@ metadata:
   namespace: ambassador
 spec:
   prefix: /
-  service: archiver-api-nonprod-rust-http.archiver
+  service: archiver-api.archiver
   host: archiver.nhyne.dev
 ---
 apiVersion: getambassador.io/v1
