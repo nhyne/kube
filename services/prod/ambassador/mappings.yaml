@@ -1,0 +1,20 @@
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: archiver-api
+  namespace: ambassador
+spec:
+  prefix: /
+  service: archiver-api-nonprod-rust-http.archiver
+  host: archiver.nhyne.dev
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: user-api
+  namespace: ambassador
+spec:
+  prefix: /
+  service: user-api.user
+  host: user.nhyne.dev
