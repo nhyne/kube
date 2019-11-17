@@ -13,7 +13,7 @@ _user_deployment "user-api-\(_labels.env)": {
 }
 
 _user_container: {
-  image: *"nhyne/user-api:0.0.1-alpha" | string
+  image: *"nhyne/user-api:v0.1.1-alpha.1" | string
   name:  "rust"
   env: [{
     name: "DATABASE_URL"
