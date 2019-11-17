@@ -13,7 +13,7 @@ _archiver_deployment: "archiver-api-\(_labels.env)": {
 }
 
 _archiver_container: {
-	image: *"nhyne/archiver-api:0.1.1-beta.4" | string
+	image: *"nhyne/archiver-api:v0.1.2-alpha.2" | string
 	name:  "rust"
 	env: [{
 		name: "DATABASE_URL"
