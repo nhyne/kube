@@ -13,6 +13,10 @@ _user_deployment "user-api-\(_labels.env)": {
       _git_sync_container,
       _diesel_container,
     ]
+    template: spec: volumes: [{
+      name:  "git"
+      _type: "empty"
+    }]
   }
 }
 

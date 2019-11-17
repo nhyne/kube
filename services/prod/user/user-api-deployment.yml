@@ -73,3 +73,5 @@ spec:
           readOnly: false
         workingDir: /home/user-api/
       serviceAccountName: default
+      volumes:
+      - name: git
