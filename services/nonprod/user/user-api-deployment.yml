@@ -37,10 +37,7 @@ spec:
         - containerPort: 8001
           name: http
           protocol: TCP
-        volumeMounts:
-        - mountPath: /etc/ssl/certs/
-          name: tls-certs
-          readOnly: false
+        volumeMounts: []
       initContainers:
       - args:
         - "30"
@@ -52,8 +49,3 @@ spec:
         ports: []
         volumeMounts: []
       serviceAccountName: default
-      volumes:
-      - name: tls-certs
-        readOnly: true
-        secret:
-          secretName: rocket-tls

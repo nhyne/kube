@@ -5,7 +5,7 @@ metadata:
     app: user
     component: user-api
     env: prod
-  name: user-api-prod-rust-http
+  name: user-api
   namespace: user
 spec:
   ports:

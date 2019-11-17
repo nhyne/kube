@@ -9,12 +9,6 @@ _user_deployment "user-api-\(_labels.env)": {
     template spec containers: [
       _user_container,
     ]
-    template: spec: volumes: [{
-      name: "tls-certs"
-      _type: "secret"
-      secret: secretName: "rocket-tls"
-      readOnly: true
-    }]
   }
 }
 
@@ -30,16 +24,13 @@ _user_container: {
     _secret: true
   }]
   ports: [_user_port]
-  volumeMounts: [{
-    name: "tls-certs"
-    mountPath: "/etc/ssl/certs/"
-  }]
 }
 
 _user_port: {
   name:          "http"
   containerPort: 8001
   protocol:      "TCP"
+  _nameOverride: "user-api"
 }
 
 _user_metadata: _metadata & {
