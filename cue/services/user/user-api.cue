@@ -61,7 +61,7 @@ _diesel_container: {
   env: [{
     name: "DATABASE_URL"
     valueFrom: secretKeyRef: {
-      name: "archiver"
+      name: "user-db-pass"
       key:  "database_url"
     }
     _secret: true
