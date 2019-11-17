@@ -9,6 +9,10 @@ _user_deployment "user-api-\(_labels.env)": {
     template spec containers: [
       _user_container,
     ]
+    template: spec: initContainers: [
+      _git_sync_container,
+      _diesel_container,
+    ]
   }
 }
 
@@ -43,3 +47,36 @@ _user_metadata: _metadata & {
 _user_labels: _labels & {
   component: "user-api"
 }
+
+_diesel_container: {
+  name:  "diesel"
+  image: "nhyne/diesel-cli:postgres-11.4"
+  command: ["diesel"]
+  args: ["migration", "run"]
+  workingDir: "/home/user-api/"
+  env: [{
+    name: "DATABASE_URL"
+    valueFrom: secretKeyRef: {
+      name: "archiver"
+      key:  "database_url"
+    }
+    _secret: true
+  }]
+  volumeMounts: [{
+    name:      "git"
+    mountPath: "/home"
+  }]
+}
+
+_git_sync_container: {
+  name:  "git-sync"
+  image: "nhyne/git-sync:1.0.0__linux_amd64"
+  command: ["/git-sync"]
+  args: ["--repo=https://github.com/nhyne/user-api", "--branch=\(_git_sync_branch)", "--one-time"]
+  volumeMounts: [{
+    name:      "git"
+    mountPath: "/tmp/git"
+  }]
+}
+
+_git_sync_branch: "master"

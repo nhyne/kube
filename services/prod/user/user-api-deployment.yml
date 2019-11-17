@@ -38,5 +38,38 @@ spec:
           name: http
           protocol: TCP
         volumeMounts: []
-      initContainers: []
+      initContainers:
+      - args:
+        - --repo=https://github.com/nhyne/user-api
+        - --branch=master
+        - --one-time
+        command:
+        - /git-sync
+        env: []
+        image: nhyne/git-sync:1.0.0__linux_amd64
+        name: git-sync
+        ports: []
+        volumeMounts:
+        - mountPath: /tmp/git
+          name: git
+          readOnly: false
+      - args:
+        - migration
+        - run
+        command:
+        - diesel
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: archiver
+        image: nhyne/diesel-cli:postgres-11.4
+        name: diesel
+        ports: []
+        volumeMounts:
+        - mountPath: /home
+          name: git
+          readOnly: false
+        workingDir: /home/user-api/
       serviceAccountName: default
