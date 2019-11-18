@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: user
+    component: database
+    env: nonprod
+  name: user-postgres
+  namespace: user
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: user
+      component: database
+      env: nonprod
+  template:
+    metadata:
+      labels:
+        app: user
+        component: database
+        env: nonprod
+    spec:
+      containers:
+      - args: []
+        command: []
+        env:
+        - name: POSTGRES_USER
+          value: something
+        - name: POSTGRES_PASSWORD
+          value: somethingelse
+        - name: POSTGRES_DB
+          value: user
+        image: postgres:11.5-alpine
+        name: postgres-user
+        ports:
+        - containerPort: 5432
+          name: postgres
+          protocol: TCP
+        volumeMounts: []
+      initContainers: []
+      serviceAccountName: default
