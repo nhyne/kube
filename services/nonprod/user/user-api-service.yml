@@ -9,7 +9,7 @@ metadata:
   namespace: user
 spec:
   ports:
-  - port: 8001
+  - port: 80
     targetPort: 8001
   selector:
     app: user
