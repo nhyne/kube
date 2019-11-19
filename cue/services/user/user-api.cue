@@ -36,7 +36,7 @@ _user_container: {
 
 _user_port: {
   name:          "http"
-  containerPort: 8001
+  containerPort: 8000
   _port:         80
   protocol:      "TCP"
   _nameOverride: "user-api"

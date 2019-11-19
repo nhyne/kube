@@ -34,7 +34,7 @@ spec:
         image: nhyne/user-api:v0.1.1-alpha.1
         name: rust
         ports:
-        - containerPort: 8001
+        - containerPort: 8000
           name: http
           protocol: TCP
         volumeMounts: []

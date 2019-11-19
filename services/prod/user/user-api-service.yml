@@ -10,7 +10,7 @@ metadata:
 spec:
   ports:
   - port: 80
-    targetPort: 8001
+    targetPort: 8000
   selector:
     app: user
     component: user-api
