@@ -15,4 +15,4 @@ spec:
     app: archiver
     component: archiver-api
     env: nonprod
-  type: NodePort
+  type: ClusterIP

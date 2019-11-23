@@ -4,15 +4,15 @@ metadata:
   labels:
     app: user
     component: user-api
-    env: prod
-  name: user-api-prod-rust-http
+    env: nonprod
+  name: user-api
   namespace: user
 spec:
   ports:
-  - port: 8001
-    targetPort: 8001
+  - port: 80
+    targetPort: 8000
   selector:
     app: user
     component: user-api
-    env: prod
+    env: nonprod
   type: ClusterIP

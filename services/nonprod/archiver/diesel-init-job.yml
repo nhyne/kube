@@ -50,19 +50,6 @@ spec:
         - mountPath: /tmp/git
           name: git
           readOnly: false
-      - args:
-        - -la
-        - /home/archiver-api
-        command:
-        - ls
-        env: []
-        image: alpine:latest
-        name: ls
-        ports: []
-        volumeMounts:
-        - mountPath: /home
-          name: git
-          readOnly: false
       restartPolicy: Never
       serviceAccountName: default
       volumes:

@@ -30,21 +30,48 @@ spec:
           valueFrom:
             secretKeyRef:
               key: database_url
-              name: user
-        image: nhyne/user-api:0.0.1-alpha
+              name: user-db-pass
+        image: nhyne/user-api:v0.1.1-alpha.1
         name: rust
         ports:
-        - containerPort: 8001
+        - containerPort: 8000
           name: http
           protocol: TCP
+        volumeMounts: []
+      initContainers:
+      - args:
+        - --repo=https://github.com/nhyne/user-api
+        - --branch=master
+        - --one-time
+        command:
+        - /git-sync
+        env: []
+        image: nhyne/git-sync:1.0.0__linux_amd64
+        name: git-sync
+        ports: []
         volumeMounts:
-        - mountPath: /etc/ssl/certs/
-          name: tls-certs
+        - mountPath: /tmp/git
+          name: git
           readOnly: false
-      initContainers: []
+      - args:
+        - migration
+        - run
+        command:
+        - diesel
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: user-db-pass
+        image: nhyne/diesel-cli:postgres-11.4
+        name: diesel
+        ports: []
+        volumeMounts:
+        - mountPath: /home
+          name: git
+          readOnly: false
+        workingDir: /home/user-api/
       serviceAccountName: default
       volumes:
-      - name: tls-certs
-        readOnly: true
-        secret:
-          secretName: rocket-tls
+      - name: git

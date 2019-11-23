@@ -11,24 +11,12 @@ _diesel_init_job: "diesel-init-\(_labels.env)": {
 		]
 		template: spec: initContainers: [
 			_git_sync_container,
-			_ls_container,
 		]
 		template: spec: volumes: [{
 			name:  "git"
 			_type: "empty"
 		}]
 	}
-}
-
-_ls_container: {
-	name:  "ls"
-	image: "alpine:latest"
-	command: ["ls"]
-	args: ["-la", "/home/archiver-api"]
-	volumeMounts: [{
-		name:      "git"
-		mountPath: "/home"
-	}]
 }
 
 _git_sync_container: {
