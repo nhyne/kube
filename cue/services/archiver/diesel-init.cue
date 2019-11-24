@@ -32,7 +32,7 @@ _diesel_container: {
 }
 
 _diesel_migration_status_container: {
-	name:  "diesel"
+	name:  "diesel-migration-status"
 	image: "nhyne/diesel-cli:postgres-11.4"
 	command: ["diesel"]
 	args: ["migration", "list"]

@@ -86,7 +86,7 @@ spec:
               key: database_url
               name: archiver
         image: nhyne/diesel-cli:postgres-11.4
-        name: diesel
+        name: diesel-migration-status
         ports: []
         volumeMounts:
         - mountPath: /home
