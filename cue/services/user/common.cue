@@ -1,11 +1,11 @@
 package kube
 
 _metadata: {
-  metadata: {
-    namespace: "user"
-  }
+	metadata: {
+		namespace: "user"
+	}
 }
 
 _labels: {
-  app: "user"
+	app: "user"
 }

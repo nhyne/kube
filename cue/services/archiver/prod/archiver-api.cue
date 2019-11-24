@@ -3,7 +3,7 @@ package kube
 deployment: _archiver_deployment & {}
 
 _archiver_port: {
-	_port:    80
+	_port: 80
 }
 
 _archiver_metadata: {

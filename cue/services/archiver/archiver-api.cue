@@ -9,6 +9,10 @@ _archiver_deployment: "archiver-api-\(_labels.env)": {
 		template: spec: containers: [
 			_archiver_container,
 		]
+		template: spec: initContainers: [
+			_git_sync_container,
+			_diesel_container,
+		]
 	}
 }
 

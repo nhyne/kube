@@ -1,24 +1,5 @@
 package kube
 
-_diesel_init_job: "diesel-init-\(_labels.env)": {
-	_diesel_init_metadata
-
-	spec: {
-		template: spec: restartPolicy: "Never"
-		template: metadata: labels:    _diesel_init_labels
-		template: spec: containers: [
-			_diesel_container,
-		]
-		template: spec: initContainers: [
-			_git_sync_container,
-		]
-		template: spec: volumes: [{
-			name:  "git"
-			_type: "empty"
-		}]
-	}
-}
-
 _git_sync_container: {
 	name:  "git-sync"
 	image: "nhyne/git-sync:1.0.0__linux_amd64"

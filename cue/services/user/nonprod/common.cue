@@ -1,5 +1,5 @@
 package kube
 
 _labels: {
-  env: "nonprod"
+	env: "nonprod"
 }
