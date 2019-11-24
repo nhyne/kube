@@ -75,3 +75,5 @@ spec:
           readOnly: false
         workingDir: /home/archiver-api/
       serviceAccountName: default
+      volumes:
+      - name: git
