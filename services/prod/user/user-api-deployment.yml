@@ -68,7 +68,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: database_url
-              name: user-db-pass
+              name: user
         image: nhyne/diesel-cli:postgres-11.4
         name: diesel
         ports: []
