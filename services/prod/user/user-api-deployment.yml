@@ -30,7 +30,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: database_url
-              name: user-db-pass
+              name: user
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: jwt_secret
+              name: user
         image: nhyne/user-api:v0.1.1-alpha.1
         name: rust
         ports:
