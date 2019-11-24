@@ -17,19 +17,19 @@ encrypt_secrets:
       --key secrets \
       --keyring kubernetes \
       --location global \
-      --plaintext-file ./services/${ENV}/nogit/secrets.yml \
-      --ciphertext-file ./services/${ENV}/secrets.yml.enc
+      --plaintext-file ./services/${ENV}/nogit/secrets.yaml \
+      --ciphertext-file ./services/${ENV}/secrets.yaml.enc
 
 decrypt_secrets:
 	gcloud kms decrypt \
       --key secrets \
       --keyring kubernetes \
       --location global \
-      --plaintext-file ./services/${ENV}/nogit/secrets.yml \
-      --ciphertext-file ./services/${ENV}/secrets.yml.enc
+      --plaintext-file ./services/${ENV}/nogit/secrets.yaml \
+      --ciphertext-file ./services/${ENV}/secrets.yaml.enc
 
 secrets: context decrypt_secrets
-	kubectl apply -f ./services/${ENV}/nogit/secrets.yml
+	kubectl apply -f ./services/${ENV}/nogit/secrets.yaml
 
 flux: context
 	kubectl apply -f ./services/other/flux-${ENV}/

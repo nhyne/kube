@@ -26,8 +26,15 @@ _user_container: {
   env: [{
     name: "DATABASE_URL"
     valueFrom secretKeyRef: {
-      name: "user-db-pass"
+      name: "user"
       key:  "database_url"
+    }
+    _secret: true
+  },{
+    name: "JWT_SECRET"
+    valueFrom secretKeyRef: {
+      name: "user"
+      key: "jwt_secret"
     }
     _secret: true
   }]
