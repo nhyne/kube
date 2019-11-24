@@ -32,7 +32,7 @@ spec:
             secretKeyRef:
               key: database_url
               name: archiver
-        image: nhyne/archiver-api:v0.1.2-alpha.2
+        image: nhyne/archiver-api:v0.1.2-alpha.4
         name: rust
         ports:
         - containerPort: 8000

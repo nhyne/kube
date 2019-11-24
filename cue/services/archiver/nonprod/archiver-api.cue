@@ -17,3 +17,5 @@ _archiver_deployment: "archiver-api-nonprod": {
 		args: ["30"]
 	}]
 }
+
+_archiver_container: image: "nhyne/archiver-api:v0.1.2-alpha.4"
