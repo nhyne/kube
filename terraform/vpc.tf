@@ -4,10 +4,10 @@ resource "google_compute_network" "kube_network" {
 }
 
 resource "google_compute_subnetwork" "central_subnetwork" {
-  name          = "central-subnetwork"
-  ip_cidr_range = "10.2.0.0/16"
-  region        = "us-central1"
-  network       = "${google_compute_network.kube_network.self_link}"
+  name                     = "central-subnetwork"
+  ip_cidr_range            = "10.2.0.0/16"
+  region                   = "us-central1"
+  network                  = "${google_compute_network.kube_network.self_link}"
   private_ip_google_access = true
 }
 
@@ -40,7 +40,7 @@ resource "google_compute_firewall" "kube_vpc_firewall_https" {
 
   allow {
     protocol = "tcp"
-    ports = ["443"]
+    ports    = ["443"]
   }
 
   source_ranges = ["0.0.0.0/0"]
@@ -52,7 +52,7 @@ resource "google_compute_firewall" "kube_vpc_firewall_ssh" {
 
   allow {
     protocol = "tcp"
-    ports = ["22"]
+    ports    = ["22"]
   }
 
   source_ranges = ["0.0.0.0/0"]

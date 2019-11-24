@@ -21,10 +21,10 @@ resource "google_container_cluster" "primary" {
     }
   }
 
-    private_cluster_config {
-      enable_private_nodes = true
-      master_ipv4_cidr_block = "10.3.0.0/28"
-    }
+  private_cluster_config {
+    enable_private_nodes   = true
+    master_ipv4_cidr_block = "10.3.0.0/28"
+  }
 
   master_auth {
     username = ""
