@@ -81,7 +81,9 @@ metadata:
   name: ambassador
   namespace: ambassador
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: archiver.nhyne.dev,user.nhyne.dev
+    external-dns.alpha.kubernetes.io/hostname: >-
+      archiver.nhyne.dev,
+      user.nhyne.dev
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
