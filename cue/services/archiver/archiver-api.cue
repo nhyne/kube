@@ -12,6 +12,7 @@ _archiver_deployment: "archiver-api-\(_labels.env)": {
 		template: spec: initContainers: [
 			_git_sync_container,
 			_diesel_container,
+			_diesel_migration_status_container,
 		]
 		template: spec: volumes: [{
 			name:  "git"

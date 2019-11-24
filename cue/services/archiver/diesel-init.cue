@@ -31,6 +31,26 @@ _diesel_container: {
 	}]
 }
 
+_diesel_migration_status_container: {
+	name:  "diesel"
+	image: "nhyne/diesel-cli:postgres-11.4"
+	command: ["diesel"]
+	args: ["migration", "list"]
+	workingDir: "/home/archiver-api/"
+	env: [{
+		name: "DATABASE_URL"
+		valueFrom: secretKeyRef: {
+			name: "archiver"
+			key:  "database_url"
+		}
+		_secret: true
+	}]
+	volumeMounts: [{
+		name:      "git"
+		mountPath: "/home"
+	}]
+}
+
 _diesel_init_metadata: _metadata & {
 	metadata: {
 		name:   "diesel-init"

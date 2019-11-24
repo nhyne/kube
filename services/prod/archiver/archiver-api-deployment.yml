@@ -74,6 +74,25 @@ spec:
           name: git
           readOnly: false
         workingDir: /home/archiver-api/
+      - args:
+        - migration
+        - list
+        command:
+        - diesel
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: archiver
+        image: nhyne/diesel-cli:postgres-11.4
+        name: diesel
+        ports: []
+        volumeMounts:
+        - mountPath: /home
+          name: git
+          readOnly: false
+        workingDir: /home/archiver-api/
       serviceAccountName: default
       volumes:
       - name: git
