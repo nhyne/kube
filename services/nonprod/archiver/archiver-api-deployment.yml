@@ -1,10 +1,7 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    fluxcd.io/automated: "true"
-    fluxcd.io/tag.sleep: semver:~3.10.1
+  annotations: {}
   labels:
     app: archiver
     component: archiver-api
@@ -35,7 +32,7 @@ spec:
             secretKeyRef:
               key: database_url
               name: archiver
-        image: nhyne/archiver-api:v0.0.0-test-tag
+        image: nhyne/archiver-api:v0.1.2-alpha.4
         name: rust
         ports:
         - containerPort: 8000
@@ -44,12 +41,57 @@ spec:
         volumeMounts: []
       initContainers:
       - args:
-        - "30"
+        - --repo=https://github.com/nhyne/archiver-api
+        - --branch=develop
+        - --one-time
         command:
-        - sleep
+        - /git-sync
         env: []
-        image: alpine:3.10.2
-        name: sleep
+        image: nhyne/git-sync:1.0.0__linux_amd64
+        name: git-sync
         ports: []
-        volumeMounts: []
+        volumeMounts:
+        - mountPath: /tmp/git
+          name: git
+          readOnly: false
+      - args:
+        - migration
+        - run
+        command:
+        - diesel
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: archiver
+        image: nhyne/diesel-cli:postgres-11.4
+        name: diesel
+        ports: []
+        volumeMounts:
+        - mountPath: /home
+          name: git
+          readOnly: false
+        workingDir: /home/archiver-api/
+      - args:
+        - migration
+        - list
+        command:
+        - diesel
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: archiver
+        image: nhyne/diesel-cli:postgres-11.4
+        name: diesel-migration-status
+        ports: []
+        volumeMounts:
+        - mountPath: /home
+          name: git
+          readOnly: false
+        workingDir: /home/archiver-api/
       serviceAccountName: default
+      volumes:
+      - name: git

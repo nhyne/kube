@@ -1,36 +1,5 @@
 package kube
 
-_diesel_init_job "diesel-init-\(_labels.env)": {
-	_diesel_init_metadata
-
-	spec: {
-		template spec restartPolicy: "Never"
-		template metadata labels:    _diesel_init_labels
-		template spec containers: [
-			_diesel_container,
-		]
-		template spec initContainers: [
-			_git_sync_container,
-			_ls_container,
-		]
-		template spec volumes: [{
-			name:  "git"
-			_type: "empty"
-		}]
-	}
-}
-
-_ls_container: {
-	name:  "ls"
-	image: "alpine:latest"
-	command: ["ls"]
-	args: ["-la", "/home/archiver-api"]
-	volumeMounts: [{
-		name:      "git"
-		mountPath: "/home"
-	}]
-}
-
 _git_sync_container: {
 	name:  "git-sync"
 	image: "nhyne/git-sync:1.0.0__linux_amd64"
@@ -50,7 +19,27 @@ _diesel_container: {
 	workingDir: "/home/archiver-api/"
 	env: [{
 		name: "DATABASE_URL"
-		valueFrom secretKeyRef: {
+		valueFrom: secretKeyRef: {
+			name: "archiver"
+			key:  "database_url"
+		}
+		_secret: true
+	}]
+	volumeMounts: [{
+		name:      "git"
+		mountPath: "/home"
+	}]
+}
+
+_diesel_migration_status_container: {
+	name:  "diesel-migration-status"
+	image: "nhyne/diesel-cli:postgres-11.4"
+	command: ["diesel"]
+	args: ["migration", "list"]
+	workingDir: "/home/archiver-api/"
+	env: [{
+		name: "DATABASE_URL"
+		valueFrom: secretKeyRef: {
 			name: "archiver"
 			key:  "database_url"
 		}

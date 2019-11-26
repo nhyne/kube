@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    fluxcd.io/automated: "true"
     fluxcd.io/tag.rust: semver:~0.1
   labels:
     app: archiver
@@ -34,12 +33,66 @@ spec:
             secretKeyRef:
               key: database_url
               name: archiver
-        image: nhyne/archiver-api:0.1.1-beta.3
+        image: nhyne/archiver-api:v0.1.2-alpha.2
         name: rust
         ports:
         - containerPort: 8000
           name: http
           protocol: TCP
         volumeMounts: []
-      initContainers: []
+      initContainers:
+      - args:
+        - --repo=https://github.com/nhyne/archiver-api
+        - --branch=master
+        - --one-time
+        command:
+        - /git-sync
+        env: []
+        image: nhyne/git-sync:1.0.0__linux_amd64
+        name: git-sync
+        ports: []
+        volumeMounts:
+        - mountPath: /tmp/git
+          name: git
+          readOnly: false
+      - args:
+        - migration
+        - run
+        command:
+        - diesel
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: archiver
+        image: nhyne/diesel-cli:postgres-11.4
+        name: diesel
+        ports: []
+        volumeMounts:
+        - mountPath: /home
+          name: git
+          readOnly: false
+        workingDir: /home/archiver-api/
+      - args:
+        - migration
+        - list
+        command:
+        - diesel
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: archiver
+        image: nhyne/diesel-cli:postgres-11.4
+        name: diesel-migration-status
+        ports: []
+        volumeMounts:
+        - mountPath: /home
+          name: git
+          readOnly: false
+        workingDir: /home/archiver-api/
       serviceAccountName: default
+      volumes:
+      - name: git

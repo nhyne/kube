@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: user
+    component: user-api
+    env: prod
+  name: user-api
+  namespace: user
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: user
+      component: user-api
+      env: prod
+  template:
+    metadata:
+      labels:
+        app: user
+        component: user-api
+        env: prod
+    spec:
+      containers:
+      - args: []
+        command: []
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: user
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: jwt_secret
+              name: user
+        image: nhyne/user-api:v0.1.1-alpha.1
+        name: rust
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        volumeMounts: []
+      initContainers:
+      - args:
+        - --repo=https://github.com/nhyne/user-api
+        - --branch=master
+        - --one-time
+        command:
+        - /git-sync
+        env: []
+        image: nhyne/git-sync:1.0.0__linux_amd64
+        name: git-sync
+        ports: []
+        volumeMounts:
+        - mountPath: /tmp/git
+          name: git
+          readOnly: false
+      - args:
+        - migration
+        - run
+        command:
+        - diesel
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database_url
+              name: user
+        image: nhyne/diesel-cli:postgres-11.4
+        name: diesel
+        ports: []
+        volumeMounts:
+        - mountPath: /home
+          name: git
+          readOnly: false
+        workingDir: /home/user-api/
+      serviceAccountName: default
+      volumes:
+      - name: git

@@ -1,12 +1,12 @@
 package kube
 
-deployment "postgres": {
+deployment: "postgres": {
 	_postgres_metadata
 
 	spec: {
-		selector matchLabels: _postgres_labels
-		template metadata labels: _postgres_labels
-		template spec containers: [_postgres_container]
+		selector: matchLabels: _postgres_labels
+		template: metadata: labels: _postgres_labels
+		template: spec: containers: [_postgres_container]
 	}
 }
 
