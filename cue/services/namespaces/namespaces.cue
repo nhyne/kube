@@ -6,4 +6,5 @@ _namespaces: [
 	"flux",
 	"user",
 	"ambassador",
+  "build",
 ]
