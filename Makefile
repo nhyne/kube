@@ -32,12 +32,15 @@ secrets: context decrypt_secrets
 	kubectl apply -f ./services/${ENV}/nogit/secrets.yaml
 
 flux: context
-	kubectl apply -f ./services/non-flux/${ENV}/flux/
+	bazel run //services/bazel/${ENV}/flux:flux.create
 
-install_flux: namespaces flux secrets
+init_cluster: context namespaces flux ambassador secrets
+
+ambassador:
+	bazel run //services/bazel/${ENV}/ambassador:ambassador.create
 
 namespaces:
-	find ./services/${ENV}/cluster/ -name "*-namespace.yml" -exec sh -c "kubectl apply -f {} ;" \;
+	bazel run //services/bazel/${ENV}/namespaces:namespaces.create
 
 sync_flux:
 	fluxctl sync --k8s-fwd-ns flux

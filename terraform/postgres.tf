@@ -27,7 +27,7 @@ resource "google_sql_database_instance" "master" {
   }
 
   depends_on = [
-    "google_service_networking_connection.private_vpc_connection"
+    google_service_networking_connection.private_vpc_connection
   ]
 }
 

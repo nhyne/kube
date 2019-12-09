@@ -1,0 +1,9 @@
+---
+apiVersion: getambassador.io/v1
+kind: TLSContext
+metadata:
+  name: tls
+  namespace: ambassador
+spec:
+  hosts: ["*"]
+  secret: nhyne-dev-tls

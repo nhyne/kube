@@ -2,7 +2,7 @@ resource "google_container_cluster" "primary" {
   name     = "nhyne-cluster"
   location = "us-central1-a"
 
-  min_master_version = "1.13.7"
+  min_master_version = local.master_k8s_version
 
   remove_default_node_pool = true
   initial_node_count       = 1
@@ -37,7 +37,7 @@ resource "google_container_node_pool" "primary_nodes" {
   location = "us-central1-a"
   cluster  = google_container_cluster.primary.name
 
-  version = "1.12.8-gke.10"
+  version = local.nodes_k8s_version
 
   initial_node_count = 1
   autoscaling {
@@ -70,7 +70,7 @@ resource "google_container_node_pool" "memory_nodes" {
   location = "us-central1-a"
   cluster  = google_container_cluster.primary.name
 
-  version = "1.12.8-gke.10"
+  version = local.nodes_k8s_version
 
   initial_node_count = 1
   autoscaling {

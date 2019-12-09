@@ -7,7 +7,7 @@ resource "google_compute_subnetwork" "central_subnetwork" {
   name                     = "central-subnetwork"
   ip_cidr_range            = "10.2.0.0/16"
   region                   = "us-central1"
-  network                  = "${google_compute_network.kube_network.self_link}"
+  network                  = google_compute_network.kube_network.self_link
   private_ip_google_access = true
 }
 

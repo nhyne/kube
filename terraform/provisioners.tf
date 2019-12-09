@@ -15,7 +15,11 @@ resource "null_resource" "rename_kube_context" {
   provisioner "local-exec" {
     command = "kubectl config rename-context gke_nhyne-233223_${google_container_cluster.primary.location}_${google_container_cluster.primary.name} nhyne"
   }
-
+  provisioner "local-exec" {
+    command    = "kubectl config delete-context nhyne"
+    when       = destroy
+    on_failure = continue
+  }
   depends_on = [null_resource.update_kubeconfig]
 }
 

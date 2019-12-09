@@ -1,9 +1,16 @@
 **/.terraform
+**/terraform.tfvars
 **/nogit
 *.pem
 *.jks
 *.pkcs12
 .idea
+
+bazel-bin
+bazel-kube
+bazel-out
+bazel-testlogs
+.ijwb
 
 localhost.key
 localhost.crt

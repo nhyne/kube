@@ -1,0 +1,72 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flux
+  namespace: flux
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: flux
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "3031" # tell prometheus to scrape /metrics endpoint's port.
+      labels:
+        name: flux
+    spec:
+      serviceAccountName: flux
+      volumes:
+        - name: git-key
+          secret:
+            secretName: flux-git-deploy
+            defaultMode: 0400 # when mounted read-only, we won't be able to chmod
+        - name: git-keygen
+          emptyDir:
+            medium: Memory
+
+      containers:
+        - name: flux
+          image: docker.io/fluxcd/flux:1.15.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          ports:
+            - containerPort: 3030 # informational
+          livenessProbe:
+            httpGet:
+              port: 3030
+              path: /api/flux/v6/identity.pub
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              port: 3030
+              path: /api/flux/v6/identity.pub
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: git-key
+              mountPath: /etc/fluxd/ssh # to match location given in image's /etc/ssh/config
+              readOnly: true # this will be the case perforce in K8s >=1.10
+            - name: git-keygen
+              mountPath: /var/fluxd/keygen # to match location given in image's /etc/ssh/config
+          args:
+            - --memcached-service=
+            - --ssh-keygen-dir=/var/fluxd/keygen
+            - --git-url=https://github.com/nhyne/kube.git
+            - --git-branch=develop
+            - --git-path=services/nonprod
+            - --git-label=flux
+            - --git-user=flux-ci
+            - --git-email=flux@nhyne.dev
+            - --git-readonly
+            - --listen-metrics=:3031
+            - --sync-garbage-collection
+
+
