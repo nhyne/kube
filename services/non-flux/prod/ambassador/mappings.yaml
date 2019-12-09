@@ -18,3 +18,13 @@ spec:
   prefix: /
   service: user-api.user
   host: user.nhyne.dev
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: bazel-remote-cache
+  namespace: ambassador
+spec:
+  prefix: /
+  service: bazel-remote-cache.build
+  host: build.nhyne.dev
